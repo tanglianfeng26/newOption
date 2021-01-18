@@ -318,12 +318,73 @@ export default {
         },
       ],
       //表单数据
-      tableText: [],
+      tableText: [
+        {
+          ID: 1,
+          State: 1,
+          OrderCode: 4421053968428194245,
+          Phone: 13602712688,
+          ProductImg: "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/kanglifu/%E8%BD%AC%E7%9B%98@2x.png",
+          ProductName: "幸运大转盘",
+          JFCost: 88,
+          JFExchangeProductNum: 15,
+          JFCost: 6,
+          ReceiverName: "唐先生",
+          ReceiverMobile: "13888888888",
+          ReceiverProvince: "广东省",
+          ReceiverCity:"广州市",
+          ReceiverDistrict:"天河区",
+          ReceiverDetailAddress:"伍仙桥",
+          OrderTime:"2020-12-21 12:21:51",
+          ExpressCompany:"顺丰快递",
+          ExpressCode:"SF00110022",
+        },
+        {
+          ID: 2,
+          State: 0,
+          OrderCode: 41231396842812315,
+          Phone: 13602712688,
+          ProductImg: "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/kanglifu/%E4%BA%A7%E5%93%811@2x.png",
+          ProductName: "iPhone 12",
+          JFCost: 65,
+          JFExchangeProductNum: 15,
+          JFCost: 14,
+          ReceiverName: "唐先生",
+          ReceiverMobile: "13888888888",
+          ReceiverProvince: "广东省",
+          ReceiverCity:"广州市",
+          ReceiverDistrict:"天河区",
+          ReceiverDetailAddress:"伍仙桥",
+          OrderTime:"2020-12-21 12:21:51",
+          ExpressCompany:"",
+          ExpressCode:"",
+        },
+        {
+          ID: 3,
+          State: 0,
+          OrderCode: 4434533934538194245,
+          Phone: 13602712688,
+          ProductImg: "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/kanglifu/%E4%BA%A7%E5%93%812@2x.png",
+          ProductName: "电动车",
+          JFCost: 88,
+          JFExchangeProductNum: 15,
+          JFCost: 21,
+          ReceiverName: "唐先生",
+          ReceiverMobile: "13888888888",
+          ReceiverProvince: "广东省",
+          ReceiverCity:"广州市",
+          ReceiverDistrict:"天河区",
+          ReceiverDetailAddress:"伍仙桥",
+          OrderTime:"2020-12-21 12:21:51",
+          ExpressCompany:"",
+          ExpressCode:"",
+        }
+      ],
       //分页
       currentRow: null,
       currentpage: 1,
       pagesize: 5,
-      total: 1,
+      total: 3,
       //发货
       dialogFormVisible: false,
       //发货数据列表
@@ -344,7 +405,20 @@ export default {
       //发货信息表
       ruleForm: {},
       //模拟快递公司列表
-      EMSORDER: [],
+      EMSORDER: [
+        {
+          value: 0,
+          EMSCompany: "顺丰快递"
+        },
+        {
+          value: 1,
+          EMSCompany: "中通快递"
+        },
+        {
+          value: 2,
+          EMSCompany: "京东快递"
+        },
+      ],
       //批量导入文本
       updatetext: "",
       //批量导入
@@ -458,7 +532,9 @@ export default {
     },
     //批量发货按钮
     shipment() {
-    //   window.location.href = "/m/Admin/ExpansionSys/integral/bulkShipment";
+      this.$router.push({
+        name: "bulkShipment"
+      })
     },
     //提交批量发货数据
     submitBatchExport: function () {

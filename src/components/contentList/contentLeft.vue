@@ -50,7 +50,7 @@
 export default {
   data() {
     return {
-      SH: true,
+      SH: false,
       path: "",
       navList: [
         {
@@ -65,16 +65,16 @@ export default {
               numIndex: "1 - 1",
               url: "/drawLucky",
             },
-            {
-              label: "抽奖设置",
-              numIndex: "1 - 2",
-              url: "/LotteryIsSet",
-            },
-            {
-              label: "新增奖项",
-              numIndex: "1 - 3",
-              url: "/editingAwards",
-            },
+            // {
+            //   label: "抽奖设置",
+            //   numIndex: "1 - 2",
+            //   url: "/LotteryIsSet",
+            // },
+            // {
+            //   label: "新增奖项",
+            //   numIndex: "1 - 3",
+            //   url: "/editingAwards",
+            // },
             {
               label: "抽奖记录",
               numIndex: "1 - 4",
@@ -122,7 +122,7 @@ export default {
           ],
         },
         {
-          label: "导航三",
+          label: "未编辑",
           numIndex: "3",
           icon: "el-icon-s-order",
           url: "/000",

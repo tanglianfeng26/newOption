@@ -144,9 +144,9 @@
 <script>
 // import mtUploader from "@/components/uploader/index";
 export default {
-//   components: {
-//     mtUploader,
-//   },
+  //   components: {
+  //     mtUploader,
+  //   },
   data() {
     return {
       //上传图片
@@ -264,18 +264,18 @@ export default {
     },
     //获取注意事项
     text() {
-    //   this.$http.integral.PCGetJFProductNoticeCtl().then((res) => {
-    //     this.textarea = res;
-    //   });
+      //   this.$http.integral.PCGetJFProductNoticeCtl().then((res) => {
+      //     this.textarea = res;
+      //   });
     },
     //   更新注意事项
     upText() {
       var datas = {
         Content: this.textarea,
       };
-    //   this.$http.integral.PCUpdateJFProductNoticeCtl(datas).then((res) => {
-    //     this.$message.success("修改成功");
-    //   });
+      //   this.$http.integral.PCUpdateJFProductNoticeCtl(datas).then((res) => {
+      //     this.$message.success("修改成功");
+      //   });
     },
     // 图片 start
     changeSuccessHandler(rs, type) {
@@ -296,10 +296,10 @@ export default {
         PageSize: this.pagesize,
         SearchStr: this.searchItem.Name || "",
       };
-    //   this.$http.integral.PCGetPagedListJFProductCtl(datas).then((res) => {
-    //     this.tableText = res.Data;
-    //     this.total = res.TotalCount;
-    //   });
+      //   this.$http.integral.PCGetPagedListJFProductCtl(datas).then((res) => {
+      //     this.tableText = res.Data;
+      //     this.total = res.TotalCount;
+      //   });
     },
     //获取商品列表 搜索
     search() {
@@ -308,10 +308,71 @@ export default {
         PageSize: this.pagesize,
         SearchStr: this.searchItem.Name || "",
       };
-    //   this.$http.integral.PCGetPagedListJFProductCtl(datas).then((res) => {
-    //     this.tableText = res.Data;
-    //     this.total = res.TotalCount;
-    //   });
+      //   this.$http.integral.PCGetPagedListJFProductCtl(datas).then((res) => {
+      var res = {
+        Data: [
+          {
+            AvaliableNum: 10,
+            CreateTime: "2020-12-09 18:53:10",
+            Description: "256G",
+            ID: 1,
+            IsOnline: true,
+            JFPrice: 1,
+            Name: "IPhone12",
+            ProductImg:
+              "http://kjpc.aicomingsys.com//file/16079991749e1a865df04649d78632ac9200ac006d.png",
+          },
+          {
+            AvaliableNum: 10,
+            CreateTime: "2020-12-09 18:53:10",
+            Description: "128G",
+            ID: 2,
+            IsOnline: true,
+            JFPrice: 2,
+            Name: "IPhone X",
+            ProductImg:
+              "https://img12.360buyimg.com/n7/jfs/t1/149071/13/17595/355519/5fcfa57cE9786ff3e/c4a272c34331debf.png",
+          },
+          {
+            AvaliableNum: 10,
+            CreateTime: "2020-12-14 19:34:36",
+            Description: "64G",
+            ID: 3,
+            IsOnline: true,
+            JFPrice: 3,
+            Name: "iPhone12",
+            ProductImg:
+              "http://kjpc.aicomingsys.com//file/1607945664a7d7f3c3b4c34ea6a3c6ac910142900d.png",
+          },
+          {
+            AvaliableNum: 10,
+            CreateTime: "2020-12-15 10:26:49",
+            Description: "24片",
+            ID: 4,
+            IsOnline: true,
+            JFPrice: 4,
+            Name: "面膜",
+            ProductImg:
+              "http://kjpc.aicomingsys.com//file/1607999194f721de3fba184a62aaffac9200ac17b3.png",
+          },
+          {
+            AvaliableNum: 1,
+            CreateTime: "2020-12-17 15:21:33",
+            Description: "测试",
+            ID: 5,
+            IsOnline: false,
+            JFPrice: 5,
+            Name: "测试",
+            ProductImg:
+              "http://kjpc.aicomingsys.com//file/1608189689b3cafe0b8f9646dc8863ac9400fd18b4.png",
+          },
+        ],
+        TotalCount: 5,
+      };
+
+      this.tableText = res.Data;
+      this.total = res.TotalCount;
+      //   });
     },
     //重置
     initSearch() {
@@ -336,14 +397,14 @@ export default {
             isOnline: datas.IsOnline,
             id: datas.ID,
           };
-        //   self.$http.integral.PCUpdateJFProductIsOnlineCtl(data).then((res) => {
-        //     if (res) {
-        //       self.$message.success("商品状态更新成功!");
-        //       self.search();
-        //     } else {
-        //       self.$message.error("商品状态更新失败!");
-        //     }
-        //   });
+          //   self.$http.integral.PCUpdateJFProductIsOnlineCtl(data).then((res) => {
+          //     if (res) {
+          //       self.$message.success("商品状态更新成功!");
+          //       self.search();
+          //     } else {
+          //       self.$message.error("商品状态更新失败!");
+          //     }
+          //   });
         })
         .catch(() => {});
     },
@@ -432,14 +493,14 @@ export default {
         type: "warning",
       })
         .then(() => {
-        //   this.$http.integral.PCDeleteJFProductCtl(data).then((res) => {
-        //     if (res) {
-        //       this.$message.success("删除成功!");
-        //       this.search();
-        //     } else {
-        //       this.$message.error("删除失败!");
-        //     }
-        //   });
+          //   this.$http.integral.PCDeleteJFProductCtl(data).then((res) => {
+          //     if (res) {
+          //       this.$message.success("删除成功!");
+          //       this.search();
+          //     } else {
+          //       this.$message.error("删除失败!");
+          //     }
+          //   });
         })
         .catch(() => {
           this.$message({

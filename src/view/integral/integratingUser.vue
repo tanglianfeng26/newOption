@@ -135,7 +135,28 @@ export default {
         },
       ],
       //表单数据
-      tableText: [],
+      tableText: [
+        {
+          Phone: 13602712688,
+          CurrentJF: 15688,
+          CreateTime: "2020-12-18 12:24:38",
+        },
+        {
+          Phone: 15013141234,
+          CurrentJF: 158,
+          CreateTime: "2021-1-11 08:25:18",
+        },
+        {
+          Phone: 18212346542,
+          CurrentJF: 35681,
+          CreateTime: "2021-1-12 11:38:31",
+        },
+        {
+          Phone: 13533033305,
+          CurrentJF: 7688,
+          CreateTime: "2021-1-18 21:25:08",
+        }
+      ],
       //修改积分
       JFnum: {},
       //初始积分
