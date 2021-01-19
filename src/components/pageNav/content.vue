@@ -17,7 +17,6 @@ export default {
 <style lang="less" scoped>
     #content{
         display: flex;
-        height: calc(100%-60px);
         width: 100%;
     }
 </style>

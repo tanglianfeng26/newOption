@@ -13,8 +13,16 @@ Router.prototype.push = function push(location) {
 
 const routes = [
   {
-    path: '*',
-    redirect: { name: "MarginBox" }
+    path: '/',
+    redirect: { name: "login" }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    meta:{
+      title: '登入',
+    },
+    component: () => import("../view/login/login.vue")
   },
   {
     path: '/',

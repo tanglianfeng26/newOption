@@ -2,7 +2,6 @@
   <div id="contentLeft">
     <el-menu
     v-for="(item, k) in navList" :key="k"
-      :collapse="SH"
       :default-active="path"
       class="el-menu-vertical-demo"
       @open="handleOpen"
@@ -28,16 +27,6 @@
             >
           </el-menu-item-group>
         </el-submenu>
-        <div
-          v-else-if="item.scope === 'SH'"
-          style="
-            text-align: center;
-            margin: 22px 0px;
-            color: #F2F6FC;
-          "
-        >
-          <i :class="item.icon" @click="changeSH"></i>
-        </div>
         <el-menu-item v-else :index="item.url">
           <i :class="item.icon"></i>
           <span slot="title">{{ item.label }}</span>
@@ -50,7 +39,6 @@
 export default {
   data() {
     return {
-      SH: false,
       path: "",
       navList: [
         {
@@ -63,7 +51,7 @@ export default {
             {
               label: "抽奖活动",
               numIndex: "1 - 1",
-              url: "/drawLucky",
+              url: "/draw/drawLucky",
             },
             // {
             //   label: "抽奖设置",
@@ -78,17 +66,17 @@ export default {
             {
               label: "抽奖记录",
               numIndex: "1 - 4",
-              url: "/lotteryRecord",
+              url: "/draw/lotteryRecord",
             },
             {
               label: "奖品发货",
               numIndex: "1 - 5",
-              url: "/awardingOperation",
+              url: "/draw/awardingOperation",
             },
             {
               label: "发货记录",
               numIndex: "1 - 6",
-              url: "/awardRecord",
+              url: "/draw/awardRecord",
             },
           ],
         },
@@ -125,13 +113,7 @@ export default {
           label: "未编辑",
           numIndex: "3",
           icon: "el-icon-s-order",
-          url: "/000",
-        },
-        {
-          label: "收起/展开",
-          numIndex: "4",
-          icon: "el-icon-s-operation",
-          scope: "SH",
+          url: "/login",
         },
       ],
     };
@@ -144,9 +126,6 @@ export default {
   },
 
   methods: {
-    changeSH() {
-        this.SH = !this.SH
-    },
     onRouteChanged() {
       this.path = this.$route.path;
     },
@@ -159,12 +138,6 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
-    },
-    goPage() {
-      this.$router.push({
-        name: "drawLucky",
-        query: {},
-      });
     },
   },
 };

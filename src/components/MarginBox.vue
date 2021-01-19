@@ -16,7 +16,6 @@ export default {
 
 <style lang="less" scoped>
 #MarginBox{
-  width: 98vw;
   height: 100vh;
 }
 </style>
