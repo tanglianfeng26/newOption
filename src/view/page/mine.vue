@@ -15,7 +15,7 @@
               <div class="nav_listText_header">唐先生</div>
               <div class="nav_listText_p">总代理(A001)</div>
             </div>
-            <div class="nav_listJt"></div>
+            <div class="nav_listJt" @click="changePersonalData"></div>
           </div>
         </div>
       </div>
@@ -32,6 +32,18 @@ export default {
   components: {
     tabBer,container
   },
+  data(){
+      return{
+
+      }
+  },
+  methods:{
+      changePersonalData(){
+          this.$router.push({
+              name: "personalData"
+          })
+      }
+  }
 };
 </script>
 

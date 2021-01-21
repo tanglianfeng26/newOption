@@ -70,7 +70,7 @@ export default {
 #login {
   font-family: PingFang-SC-Medium, PingFang-SC;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -133,7 +133,7 @@ export default {
   }
   .banding_login {
     color: #999;
-    margin-top: 2.6rem;
+    margin-top: 2rem;
     font-size: 0.28rem;
   }
   .img_wx {

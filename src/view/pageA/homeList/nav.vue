@@ -3,7 +3,7 @@
       <div class="navTabber">
         <div class="nav_header">
           <div>经销商系统</div>
-          <div class="nav_header_img">
+          <div class="nav_header_img" @click="go_Message">
               <img src="http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/kanglifu/%E4%BF%A1%E6%81%AF@2x.png" alt="">
               <div class="_i"></div>
           </div>
@@ -49,6 +49,13 @@ export default {
                     label: "存货"
                 }
             ]
+        }
+    },
+    methods:{
+        go_Message(){
+            this.$router.push({
+                name: "message"
+            })
         }
     }
 }

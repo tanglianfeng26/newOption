@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="ty dis-f container_secordBox">
-      <div class="team_list" v-for="(item, index) in teamList" :key="index">
+      <div class="team_list" v-for="(item, index) in teamList" :key="index" @click="jump_fun(item.urlName)">
         <div class="team_listImg">
           <img :src="item.imgUrl" alt="" />
         </div>
@@ -84,11 +84,13 @@ export default {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E6%89%AB%E7%A0%81%E5%8F%91%E8%B4%A7@2x.png",
           label: "扫码发货",
+          urlName: "sweepCodeDelivery"
         },
         {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E6%88%91%E8%A6%81%E8%AE%A2%E8%B4%A7@2x.png",
           label: "我要订货",
+          urlName: "goods"
         },
         {
           imgUrl:
@@ -123,6 +125,13 @@ export default {
       ],
     };
   },
+  methods:{
+    jump_fun(option){
+      this.$router.push({
+        name: option
+      })
+    }
+  }
 };
 </script>
 
