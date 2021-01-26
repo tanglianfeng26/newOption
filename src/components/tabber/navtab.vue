@@ -3,20 +3,24 @@
     <van-tabs
       v-model="active"
       swipeable
-      background="#f5f5f5"
+      background="#fff"
       title-active-color="#1e87fe"
       color="#1e87fe"
       :ellipsis="false"
     >
-      <van-tab v-for="(item, index) in navTitle" :key="index" :title="item.title">
+      <van-tab
+        v-for="(item, index) in navTitle"
+        :key="index"
+        :title="item.title"
+      >
         <div class="big_box">
           <div class="ty">
             <ve-ring :data="item.chartData" height="7rem"></ve-ring>
           </div>
           <div class="ty" style="padding: 0rem 0.3rem">
-            <div class="_level" v-for="(i,k) in item.chartData.rows" :key="k">
-              <div class="color_header">{{i.级别}}</div>
-              <div class="color_num">{{i.直属}}</div>
+            <div class="_level" v-for="(i, k) in item.chartData.rows" :key="k">
+              <div class="color_header">{{ i.级别 }}</div>
+              <div class="color_num">{{ i.直属 }}</div>
             </div>
           </div>
         </div>
@@ -37,7 +41,7 @@ export default {
       active: 0,
       navTitle: [
         {
-          title: "唐适面膜",
+          title: "TS唐氏面膜",
           chartData: {
             columns: ["级别", "直属"],
             rows: [
@@ -50,7 +54,7 @@ export default {
           },
         },
         {
-          title: "唐适护肤",
+          title: "TS唐氏护肤",
           chartData: {
             columns: ["级别", "直属"],
             rows: [
@@ -63,7 +67,7 @@ export default {
           },
         },
         {
-          title: "唐适洗护",
+          title: "TS唐氏洗护",
           chartData: {
             columns: ["级别", "直属"],
             rows: [
@@ -76,7 +80,7 @@ export default {
           },
         },
         {
-          title: "唐适大健康",
+          title: "TS唐氏大健康",
           chartData: {
             columns: ["级别", "直属"],
             rows: [
@@ -89,7 +93,7 @@ export default {
           },
         },
         {
-          title: "唐适新能源",
+          title: "TS唐氏新能源",
           chartData: {
             columns: ["级别", "直属"],
             rows: [
@@ -104,8 +108,7 @@ export default {
       ],
     };
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 
@@ -113,10 +116,10 @@ export default {
 /deep/.van-tabs__wrap {
   margin-bottom: 0.06rem;
 }
-#navtab{
-    min-height: 100vh;
-    box-sizing: border-box;
-    padding-bottom: 1.1rem;
+#navtab {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding-bottom: 1.1rem;
 }
 .big_box {
   display: flex;

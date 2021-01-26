@@ -13,7 +13,7 @@
       <div class="goodsAllPrice">￥{{ price }}</div>
     </div>
 
-    <div class="btn_settlement">去结算</div>
+    <div class="btn_settlement" @click="Topay">去结算</div>
     
   </div>
 </template>
@@ -46,6 +46,9 @@ export default {
     show_sheet() {
         this.$emit("showTC")
     },
+    Topay(){
+      this.$emit("toPay")
+    },
   },
 };
 </script>
@@ -63,7 +66,7 @@ export default {
   padding: 0rem 0.2rem 0rem 0.34rem;
   box-sizing: border-box;
   justify-content: space-between;
-  z-index: 9999;
+  z-index: 3000;
   .w_box {
     display: flex;
     align-items: center;

@@ -96,11 +96,13 @@ export default {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E8%AE%A2%E5%8D%95%E7%AE%A1%E7%90%86@2x.png",
           label: "订单管理",
+          urlName: "myOrder"
         },
         {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E9%82%80%E8%AF%B7%E7%BB%8F%E9%94%80%E5%95%86@2x.png",
           label: "邀请代理",
+          urlName: "InviteAgentg"
         },
       ],
       dbList: [

@@ -1,16 +1,12 @@
 <template>
   <!-- 个人资料 -->
   <div id="personalData">
+    <nav-title :title="title" :navRight="rightIcon" @changeTool="handleTool" />
     <div class="ty clt">
-      <div
-        class="clt_dis-f"
-        v-for="(item, index) in DataList"
-        :key="index"
-        @click="changePopple(item)"
-      >
+      <div class="clt_dis-f" v-for="(item, index) in DataList" :key="index">
         <div>{{ item.label }}</div>
         <div class="clt_dis-f_children" v-if="item.scoped === 'headImg'">
-          <div class="headImg">
+          <div class="headImg" @click="changePopple(item)">
             <img :src="item.imgUrl" alt="" />
           </div>
           <div class="iwt"></div>
@@ -45,9 +41,11 @@
 </template>
 
 <script>
+import navTitle from "../../../components/navTitle/navtitle";
 import { Collapse, CollapseItem, ActionSheet, ImagePreview, Toast } from "vant";
 export default {
   components: {
+    navTitle,
     [Collapse.name]: Collapse,
     [CollapseItem.name]: CollapseItem,
     [ActionSheet.name]: ActionSheet,
@@ -56,6 +54,8 @@ export default {
   },
   data() {
     return {
+      title: "我的信息",
+      rightIcon: "",
       show: false,
       actions: [
         { name: "查看大图", index: 0 },
@@ -107,6 +107,7 @@ export default {
     };
   },
   methods: {
+    handleTool() {},
     changePopple() {
       this.show = true;
     },
@@ -117,12 +118,10 @@ export default {
         ]);
       }
       if (v.index == 1) {
-        Toast.fail("暂无此功能"); 
+        Toast.fail("暂无此功能");
       }
     },
-    onCancel() {
-      
-    },
+    onCancel() {},
   },
 };
 </script>

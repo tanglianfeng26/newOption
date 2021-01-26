@@ -63,7 +63,9 @@ export default {
 
 <style lang="less" scoped>
 #message{
-  margin-top: 0.22rem;
+  box-sizing: border-box;
+  padding-top: 0.22rem;
+  height: 100vh;
 }
 .message_list {
   box-sizing: border-box;

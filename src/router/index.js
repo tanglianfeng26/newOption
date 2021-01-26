@@ -13,12 +13,12 @@ Router.prototype.push = function push(location) {
 const routes = [
   {
     path: '/',
-    redirect: { name: "home" }
+    redirect: { name: "login" }
   },
   {
     path: '/login',
     name: 'login',
-    meta:{
+    meta: {
       title: '登入',
     },
     component: () => import("../view/login/login.vue")
@@ -70,8 +70,15 @@ const routes = [
   // },
 ]
 
+
 const router = new Router({
   routes
 })
-
+router.beforeEach((to, form, next) => {
+  /*路由变化修改title*/
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next();
+})
 export default router

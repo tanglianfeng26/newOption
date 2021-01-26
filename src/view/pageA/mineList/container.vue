@@ -3,7 +3,7 @@
     <div class="ty navTop">
       <div class="navTop_top">
         <div>我的订单</div>
-        <div class="dis_flex">
+        <div class="dis_flex" @click="jump_allOrder">
           查看全部
           <div class="iLogo"></div>
         </div>
@@ -13,6 +13,7 @@
           class="navTop_listSmall"
           v-for="(item, index) in NavList"
           :key="index"
+          @click="jump_order(item.activeIndex)"
         >
           <div class="Logo">
             <img :src="item.imgUrl" alt="" />
@@ -24,7 +25,12 @@
       </div>
     </div>
     <div class="ty listUl">
-      <div class="dis_flex" v-for="(item, index) in ListMenu" :key="index">
+      <div
+        class="dis_flex"
+        v-for="(item, index) in ListMenu"
+        :key="index"
+        @click="differents(item.clickName)"
+      >
         <div class="dis_flexBox">
           <div class="img">
             <img :src="item.imgUrl" alt="" />
@@ -34,12 +40,16 @@
         <div class="iLogo"></div>
       </div>
     </div>
-    <div class="ty exit_login">退出登入</div>
+    <div class="ty exit_login" @click="exit_login">退出登入</div>
   </div>
 </template>
 
 <script>
+import { Dialog, Toast } from "vant";
 export default {
+  components: {
+    [Dialog.name]: Dialog,
+  },
   data() {
     return {
       NavList: [
@@ -47,21 +57,25 @@ export default {
           title: "待审核",
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/waitChack@2x.png",
+          activeIndex: 1,
         },
         {
           title: "待发货",
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/waitSent@2x.png",
+          activeIndex: 2,
         },
         {
           title: "待收货",
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/waitReceive@2x.png",
+          activeIndex: 3,
         },
         {
           title: "已完成",
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/waitSent@2x.png",
+          activeIndex: 6,
         },
       ],
       ListMenu: [
@@ -70,27 +84,76 @@ export default {
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/%E5%BE%AE%E4%BF%A1%E7%BB%91%E5%AE%9A%E5%88%97%E8%A1%A8@2x.png",
           title: "微信绑定列表",
           pushTo: "",
+          clickName: "bandtapWX",
         },
         {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/%E5%9C%B0%E5%9D%80%E7%AE%A1%E7%90%86@2x.png",
           title: "地址管理",
           pushTo: "",
+          clickName: "address",
         },
         {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81@2x.png",
           title: "修改密码",
           pushTo: "",
+          clickName: "changeM",
         },
         {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/%E5%85%B3%E4%BA%8E%E7%B3%BB%E7%BB%9F@2x.png",
           title: "关于系统",
           pushTo: "",
+          clickName: "aboutWindows",
         },
       ],
     };
+  },
+  methods: {
+    jump_order(index){
+      this.$router.push({
+        name: "myOrder",
+        query:{
+          activeIndex: index
+        }
+      });
+    },
+    jump_allOrder() {
+      this.$router.push({
+        name: "myOrder",
+      });
+    },
+    differents(options) {
+      console.log(options);
+      if (options === "aboutWindows") {
+        Dialog.alert({
+          title: "关于系统",
+          message:
+            "该系统为代理系统模板，未使用涉及后端技术，属于纯前端开发，Vue框架+VantUI开发，本系统使用模块化开发思路，多种模块可复用，后期维护简单，感谢您的浏览",
+          theme: "round-button",
+        }).then(() => {
+          // on close
+        });
+      }
+      if (options === "address") {
+        this.$router.push({
+          name: "address",
+        });
+      }
+      if (options === "changeM") {
+        Toast.fail("修改密码功能未开发");
+      }
+      if (options === "bandtapWX") {
+        Toast.fail("微信绑定功能未开发");
+      }
+    },
+    exit_login() {
+      localStorage.removeItem("phone");
+      this.$router.replace({
+        name: "login",
+      });
+    },
   },
 };
 </script>
@@ -107,13 +170,13 @@ export default {
       align-items: center;
       justify-content: space-between;
       margin-bottom: 0.36rem;
-      .dis_flex{
-          display: flex;
-          align-items: center;
-          color: #999;
-          .iLogo{
-              margin-left: 0.1rem;
-          }
+      .dis_flex {
+        display: flex;
+        align-items: center;
+        color: #999;
+        .iLogo {
+          margin-left: 0.1rem;
+        }
       }
     }
     .navTop_List {

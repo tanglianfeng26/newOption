@@ -1,15 +1,18 @@
 <template>
   <div id="login">
-      <div class="nav_logoImg">
-          <img src="http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/kanglifu/200x200_01@2x.png" alt="">
-      </div>
+    <div class="nav_logoImg">
+      <img
+        src="http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/kanglifu/200x200_01@2x.png"
+        alt=""
+      />
+    </div>
     <div class="nav_logo">登入系统</div>
     <div class="input_form">
-      <span>账号</span>
+      <div class="span">账号</div>
       <input type="text" v-model="formS.ems" placeholder="请输入账号" />
     </div>
     <div class="input_form">
-      <span>密码</span>
+      <div class="span">密码</div>
       <input type="password" v-model="formS.pass" placeholder="请输入密码" />
     </div>
     <div class="d-right"><i @click="forget">忘记密码</i></div>
@@ -17,7 +20,7 @@
     <div class="banding_login">已绑定微信可直接登录</div>
     <div class="img_wx">
       <img
-      @click="jump_wx"
+        @click="jump_wx"
         src="http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/kanglifu/%E5%BE%AE%E4%BF%A1%E7%99%BB%E5%BD%95@2x.png"
         alt=""
       />
@@ -34,6 +37,13 @@ export default {
       formS: {},
     };
   },
+  mounted() {
+    if (localStorage["phone"]) {
+      this.$router.replace({
+        name: "home",
+      });
+    }
+  },
   methods: {
     get_login() {
       if (!this.formS.ems) {
@@ -44,28 +54,36 @@ export default {
         Notify({ type: "danger", message: "请输入密码" });
         return;
       }
-      Toast.fail("维护中");
+      if (this.formS.ems == "test" && this.formS.pass == "mt888888") {
+        localStorage.setItem("phone", this.formS.ems);
+        this.$router.go(-1)
+      } else {
+        Notify({ type: "danger", message: "账号或密码错误" });
+      }
     },
-    forget(){
+    forget() {
       Toast.fail("功能未开启");
     },
-    jump_wx(){
+    jump_wx() {
       Toast.fail("功能未开启");
-    }
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
 @keyframes showT {
-    0%{
-        opacity: 0;
-        transform: translateY(2rem);
-    }
-    100%{
-        opacity: 1;
-        transform: translateY(0rem);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+}
+::-webkit-scrollbar {
+  display: none;
 }
 #login {
   font-family: PingFang-SC-Medium, PingFang-SC;
@@ -75,15 +93,17 @@ export default {
   flex-direction: column;
   align-items: center;
   animation: showT 0.5s;
-  .nav_logoImg{
+  background-color: #fff;
+  overflow-y: scroll;
+  .nav_logoImg {
     margin-top: 1.8rem;
     margin-bottom: 0.2rem;
     width: 1.2rem;
     height: 1.2rem;
-    img{
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
     }
   }
   .nav_logo {
@@ -97,13 +117,20 @@ export default {
     border-bottom: 0.01rem solid #e5e5e5;
     height: 0.8rem;
     line-height: 0.8rem;
-    span {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    .span {
       color: #999;
+      margin-right: 0.2rem;
     }
     input {
+      flex: 1;
       border: none;
       outline: none;
       padding-left: 0.1rem;
+      box-sizing: border-box;
+      background-color: transparent;
     }
     input:-webkit-autofill {
       transition: background-color 5000s ease-in-out 0s;

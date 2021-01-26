@@ -47,74 +47,102 @@ export default {
       activeGoodsNow: 0,
       goodsClassList: [
         {
-          label: "彩妆",
+          label: "电子产品",
           ID: 0,
           goods: [
             {
               imgUrl:
                 "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E4%BA%A7%E5%93%811@2x.png",
-              title: "补水保湿面膜",
-              inventory: 3564,
-              price: "323.50",
-              ID: 100
+              title: "iPhone 12",
+              inventory: 50,
+              price: "5599.00",
+              ID: 100,
             },
+
             {
               imgUrl:
-                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E9%9D%A2%E8%86%9C@2x.png",
-              title: "补水保湿面膜",
-              inventory: 3564,
-              price: "323.50",
-              ID: 101
-
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/self/13f75131a569b8366c21b1178553e98e.jpeg",
+              title: "电竞游戏耳机",
+              inventory: 312,
+              price: "288.00",
+              ID: 102,
             },
+
             {
               imgUrl:
-                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E4%BA%A7%E5%93%811@2x.png",
-              title: "补水保湿面膜",
-              inventory: 3564,
-              price: "323.50",
-              ID: 102
-
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/self/aa9ea372a766efa551f1fb273036e660.jpeg",
+              title: "不锈钢锅",
+              inventory: 105,
+              price: "199.00",
+              ID: 109,
             },
           ],
         },
         {
-          label: "护肤",
+          label: "美食",
           ID: 1,
           goods: [
             {
               imgUrl:
-                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E4%BA%A7%E5%93%811@2x.png",
-              title: "补水保湿洗面奶",
-              inventory: 264,
-              price: "103.50",
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/self/3407608e7c5ff3d7929dac2d6b833148.jpeg",
+              title: "啤酒",
+              inventory: 780,
+              price: "3.50",
+              ID: 103,
             },
             {
               imgUrl:
-                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E9%9D%A2%E8%86%9C@2x.png",
-              title: "祛痘面膜",
-              inventory: 384,
-              price: "83.00",
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/self/3d440afc3fbfc15880c702f0e4cf864c.jpeg",
+              title: "旺仔牛奶",
+              inventory: 4672,
+              price: "2.50",
+              ID: 104,
+            },
+            {
+              imgUrl:
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/self/976249decc06f85dcab2b4887c8b98a7.jpeg",
+              title: "就很棒",
+              inventory: 3564,
+              price: "4.50",
+              ID: 107,
+            },
+            {
+              imgUrl:
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/self/a4dc2c293091b8b285a4c28781278c32.jpeg",
+              title: "百威啤酒",
+              inventory: 7610,
+              price: "88.00",
+              ID: 108,
             },
           ],
         },
         {
-          label: "洗护",
+          label: "彩妆",
           ID: 2,
           goods: [
             {
               imgUrl:
-                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E9%9D%A2%E8%86%9C@2x.png",
-              title: "补水保湿面膜",
-              inventory: 3564,
-              price: "323.50",
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/self/41f52a7b475eed5d04e5264d83152b85.jpeg",
+              title: "香水",
+              inventory: 461,
+              price: "199.00",
+              ID: 105,
             },
             {
               imgUrl:
-                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E4%BA%A7%E5%93%811@2x.png",
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/self/492b3d072456fc2c398094f5dc7d8c85.jpeg",
+              title: "火山洗面奶",
+              inventory: 543,
+              price: "48.00",
+              ID: 106,
+            },
+            {
+              imgUrl:
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E9%9D%A2%E8%86%9C@2x.png",
               title: "补水保湿面膜",
-              inventory: 3564,
-              price: "323.50",
+              inventory: 6521,
+              price: "79.90",
+              ID: 101,
             },
           ],
         },
@@ -127,7 +155,6 @@ export default {
     },
     addGoods(option) {
       this.$emit("addPrice", option);
-      option.inventory--;
     },
   },
 };
@@ -143,6 +170,7 @@ export default {
   width: 100%;
   .left {
     width: 1.6rem;
+    overflow: auto;
     ul > li {
       text-align: center;
       height: 0.86rem;
@@ -152,6 +180,8 @@ export default {
     }
   }
   .right {
+    overflow: auto;
+    overflow-y: scroll;
     flex: 1;
     background-color: #fff;
     .goodsInformation {
