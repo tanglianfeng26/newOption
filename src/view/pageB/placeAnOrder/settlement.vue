@@ -148,6 +148,8 @@ export default {
             // on cancel
           });
             return;
+      }else{
+        localStorage["price"] = Number(localStorage["price"]) - Number(this.priceS);
       }
       if (localStorage["order"] === undefined) {
         localStorage["order"] = [];
@@ -163,6 +165,7 @@ export default {
       obj.wordid = this.uuid();
       obj.createTime = this.newDetime();
       obj.status = "待审核";
+      obj.isStatus = 1
 
       this.objList.push(obj);
       localStorage["order"] = JSON.stringify(this.objList);
@@ -180,7 +183,7 @@ export default {
     },
     chuan() {
       var self = this;
-      Toast.success("模拟提交成功");
+      Toast.success("下单成功");
       setTimeout(function () {
         self.$router.replace({
           name: "myOrder",

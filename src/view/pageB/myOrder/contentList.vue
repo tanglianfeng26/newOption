@@ -1,9 +1,9 @@
 <template>
   <div id="contentList">
-    <div class="big_box" v-if="orderList.length > 0">
+    <div class="big_box" v-if="NowOrderList.length > 0">
       <div
         class="orderList"
-        v-for="(item, index) in orderList"
+        v-for="(item, index) in NowOrderList"
         :key="index"
       >
         <div class="headerTitle ty">
@@ -219,14 +219,15 @@ export default {
     //   }
   },
   mounted() {
+    if (localStorage["order"] !== undefined) {
+      this.orderList = JSON.parse(localStorage["order"]);
+    }
     if (this.conData === 0) {
       this.initAllList();
     } else {
       this.initList();
     }
-    if (localStorage["order"] !== undefined) {
-      this.orderList = JSON.parse(localStorage["order"]);
-    }
+    
   },
   methods: {
     jump_page(option) {
@@ -239,11 +240,11 @@ export default {
       });
     },
     initAllList() {
-      this.NowOrderList = this.orderListS;
+      this.NowOrderList = this.orderList;
     },
     initList() {
       var self = this;
-      this.NowOrderList = this.orderListS.filter((item) => {
+      this.NowOrderList = this.orderList.filter((item) => {
         return item.isStatus == this.conData;
       });
     },
