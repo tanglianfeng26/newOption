@@ -1,41 +1,36 @@
 <template>
   <div id="contentList">
-    <div class="big_box" v-if="NowOrderList.length > 0">
+    <div class="big_box" v-if="orderList.length > 0">
       <div
         class="orderList"
-        v-for="(item, index) in NowOrderList"
+        v-for="(item, index) in orderList"
         :key="index"
-        @click="jump_page(item)"
       >
         <div class="headerTitle ty">
           <div class="up">
-            <div>下单人：{{ item.user }}</div>
+            <div>下单人：{{ item.address.name }}</div>
             <div class="bt">{{ item.status }}</div>
           </div>
-          <div class="down">{{ item.title }}</div>
+          <div class="down">{{ item.createTime }}</div>
         </div>
-        <div
-          class="AgoodsContainer ty"
-          v-for="(i, k) in item.goodsOrder"
-          :key="k"
-        >
+        <div class="AgoodsContainer ty" v-for="(i, k) in item.datas" :key="k" @click="jump_page(item)">
           <div class="goodsLogoImg">
             <img :src="i.imgUrl" alt="" />
           </div>
           <div class="goodsText">
-            <h4>{{ i.goodsName }}</h4>
-            <p>{{ i.note }}</p>
+            <h4>{{ i.title }}</h4>
+            <!-- <p>{{ i.note }}</p> -->
             <div class="priceAndNum">
               <div class="price">￥{{ i.price }}</div>
-              <div class="Num">X {{ i.goodsNum }}</div>
+              <div class="Num">X {{ i.goodsIndex }}</div>
             </div>
           </div>
         </div>
         <div class="footerGoods">
           <div class="allPrice">
-            共{{ item.goodsNumS }}件商品 合计：<span
-              >￥{{ item.goodsPriceS }}</span
-            >(含邮费 ￥{{ item.feeEms }})
+            共{{ item.goodsNum }}件商品 合计：<span
+              >￥{{ item.goodsPrice }}</span
+            >
           </div>
           <div class="btn">
             <div class="btn_clear" @click="cancel_order">取消订单</div>
@@ -205,6 +200,7 @@ export default {
           ],
         },
       ],
+      orderList: [],
       NowOrderList: [], //当前所选商品列表
     };
   },
@@ -227,6 +223,9 @@ export default {
       this.initAllList();
     } else {
       this.initList();
+    }
+    if (localStorage["order"] !== undefined) {
+      this.orderList = JSON.parse(localStorage["order"]);
     }
   },
   methods: {

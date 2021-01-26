@@ -16,8 +16,8 @@
           <van-icon name="location-o" />
         </div>
         <div class="addressAndTa">
-          <h4>{{queryDatas.user}}<i>{{queryDatas.tel}}</i></h4>
-          <p>{{queryDatas.address}}</p>
+          <h4>{{queryDatas.address.name}}<i>{{queryDatas.address.tel}}</i></h4>
+          <p>{{queryDatas.address.address}}</p>
         </div>
       </div>
       <div class="orderList">
@@ -26,33 +26,33 @@
             <div>下单店铺：{{queryDatas.shopName}}</div>
           </div>
         </div>
-        <div v-for="(item,index) in list" :key="index" class="AgoodsContainer ty">
+        <div v-for="(item,index) in queryDatas.datas" :key="index" class="AgoodsContainer ty">
           <div class="goodsLogoImg">
             <img :src="item.imgUrl" alt="" />
           </div>
           <div class="goodsText">
-            <h4>{{item.goodsName}}</h4>
-            <p>{{item.note}}</p>
+            <h4>{{item.title}}</h4>
+            <!-- <p>{{item.note}}</p> -->
             <div class="priceAndNum">
               <div class="price">￥{{item.price}}</div>
-              <div class="Num">X {{item.goodsNum}}</div>
+              <div class="Num">X {{item.goodsIndex}}</div>
             </div>
           </div>
         </div>
         <div class="footerGoods">
           <div class="allPrice">
-            共{{queryDatas.goodsNumS}}件商品 合计：<span>￥{{queryDatas.goodsPriceS}}</span>(含邮费 ￥{{queryDatas.feeEms}})
+            共{{queryDatas.goodsNum}}件商品 合计：<span>￥{{queryDatas.goodsPrice}}</span>
           </div>
         </div>
       </div>
       <div class="orderText ty">
           <div class="dis-f">
               <div class="left">订单编号：</div>
-              <div class="right">{{queryDatas.workID}}</div>
+              <div class="right">{{queryDatas.wordid}}</div>
           </div>
           <div class="dis-f">
               <div class="left">下单时间：</div>
-              <div class="right">{{queryDatas.title}}</div>
+              <div class="right">{{queryDatas.createTime}}</div>
           </div>
       </div>
     </div>

@@ -50,7 +50,7 @@
 
 <script>
 import navTitle from "../../../components/navTitle/navtitle";
-import { Toast, Notify } from "vant";
+import { Toast, Notify, Dialog } from "vant";
 export default {
   components: {
     navTitle,
@@ -64,6 +64,7 @@ export default {
       numGoods: 0,
       arrAddress: [],
       getAddress: false,
+      objList: [],
     };
   },
   mounted() {
@@ -101,11 +102,71 @@ export default {
       });
     },
     handleTool() {},
+    uuid() {
+      return "xxxx-xxxx-xxxx-xxxx-xxxx".replace(/[xy]/g, function (c) {
+        var r = (Math.random() * 16) | 0,
+          v = c == "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      });
+    },
+    newDetime() {
+      var myDate = new Date();
+      var newTime =
+        myDate.getFullYear() +
+        "-" +
+        myDate.getMonth() +
+        1 +
+        "-" +
+        myDate.getDate() +
+        " " +
+        myDate.getHours() +
+        ":" +
+        myDate.getMinutes() +
+        ":" +
+        myDate.getSeconds();
+      return newTime;
+    },
     submit() {
+      var self = this;
       if (this.arrAddress === null) {
         Notify({ type: "danger", message: "请选择地址" });
+        return;
       }
-      var self = this;
+      if (localStorage["price"] < this.priceS) {
+        Dialog.confirm({
+          title: "金额不足",
+          message: "当前余额：" + localStorage["price"],
+          confirmButtonText: "充帐",
+        })
+          .then(() => {
+            // on confirm
+            self.$router.push({
+              name: "myAssets",
+            });
+          })
+          .catch(() => {
+            // on cancel
+          });
+            return;
+      }
+      if (localStorage["order"] === undefined) {
+        localStorage["order"] = [];
+      } else {
+        this.objList = JSON.parse(localStorage["order"]);
+      }
+      var obj = {};
+      obj.shopName = "唐氏";
+      obj.address = this.arrAddress;
+      obj.datas = this.datas;
+      obj.goodsNum = this.numGoods;
+      obj.goodsPrice = this.priceS;
+      obj.wordid = this.uuid();
+      obj.createTime = this.newDetime();
+      obj.status = "待审核";
+
+      this.objList.push(obj);
+      localStorage["order"] = JSON.stringify(this.objList);
+
       Toast.loading({
         duration: 0,
         forbidClick: true,
@@ -121,7 +182,7 @@ export default {
       var self = this;
       Toast.success("模拟提交成功");
       setTimeout(function () {
-        self.$router.push({
+        self.$router.replace({
           name: "myOrder",
           query: {
             activeIndex: 0,
