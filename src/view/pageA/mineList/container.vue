@@ -118,23 +118,31 @@ export default {
       orderlists: [],
     };
   },
-  mounted() {
-    this.initNum();
-    if (JSON.parse(localStorage["order"]) === undefined) {
-    } else {
-      this.orderlists = JSON.parse(localStorage["order"]);
-    }
+  created() {
+    this.newinit();
   },
   methods: {
-    initNum() {
-      if(this.orderlists.length > 0 ){
-      this.orderlists.forEach((item) => {
-        this.NavList.forEach((i) => {
-          if (i.activeIndex == item.isStatus) {
-            i.numIndex++;
-          }
-        });
+    async newinit() {
+      const aiw = await this.getOrder();
+      this.initNum()
+    },
+    getOrder() {
+      return new Promise((resolve, reject) => {
+        if (localStorage["order"] !== undefined) {
+          this.orderlists = JSON.parse(localStorage["order"]);
+          resolve()
+        }
       });
+    },
+    initNum() {
+      if (this.orderlists.length > 0) {
+        this.orderlists.forEach((item) => {
+          this.NavList.forEach((i) => {
+            if (i.activeIndex == item.isStatus) {
+              i.numIndex++;
+            }
+          });
+        });
       }
     },
     jump_order(index) {

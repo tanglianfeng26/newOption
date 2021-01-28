@@ -184,6 +184,7 @@ export default {
     },
     chuan() {
       var self = this;
+      delete localStorage["shoppingCarList"];
       Toast.success("下单成功");
       setTimeout(function () {
         self.$router.replace({

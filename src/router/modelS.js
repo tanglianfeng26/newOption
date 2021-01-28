@@ -4,6 +4,24 @@ const baseUrl = {
     tool: "/tool/"
 }
 export default [
+
+    {
+        path: baseUrl.mine + 'addressONE',
+        name: 'addressONE',
+        meta: {
+            title: '地址管理',
+        },
+        component: () => import("../view/pageB/TestAddress/address.vue")
+    },
+    {
+        path: baseUrl.mine + 'addressChild',
+        name: 'addressChild',
+        meta: {
+            title: '新增地址',
+        },
+        component: () => import("../view/pageB/TestAddress/AddAddress.vue")
+    },
+
     {
         path: baseUrl.mine + 'personalData',
         name: 'personalData',

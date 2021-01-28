@@ -251,7 +251,7 @@ export default {
       });
     },
     jump_shop() {
-      this.$router.push({
+      this.$router.replace({
         name: "goods",
       });
     },

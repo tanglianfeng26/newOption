@@ -2,7 +2,15 @@
   <div id="orderList">
     <nav-title :title="title" :navRight="rightIcon" @changeTool="handleTool" />
     <div class="big_box">
-      <div class="orderBox" v-for="(item, index) in orderList" :key="index">
+      <div v-if="orderList.length === undefined">
+        <van-empty description="暂无兑换记录" />
+      </div>
+      <div
+        class="orderBox"
+        v-else
+        v-for="(item, index) in orderList"
+        :key="index"
+      >
         <div class="nav">
           <div class="code">订单号：{{ item.wordID }}</div>
           <div class="status">待发货</div>
@@ -32,9 +40,11 @@
 
 <script>
 import navTitle from "../../../components/navTitle/navtitle";
+import { Empty } from "vant";
 export default {
   components: {
     navTitle,
+    [Empty.name]: Empty,
   },
   data() {
     return {

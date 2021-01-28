@@ -58,17 +58,25 @@ export default {
       searchListS: [],
     };
   },
-  mounted() {
+  created() {
     if (localStorage["goods"] !== undefined) {
       this.searchListS = JSON.parse(localStorage["goods"]);
     }
+    this.get_initShopCar();
   },
   methods: {
+    get_initShopCar() {
+      if (localStorage["shoppingCarList"] !== undefined) {
+        this.goodsCarList = JSON.parse(localStorage["shoppingCarList"]);
+        this.onChange();
+      }
+    },
     ToPay() {
       if (this.goodsCarList.length == 0) {
         Toast("请添加商品");
         return;
       }
+      localStorage["shoppingCarList"] = JSON.stringify(this.goodsCarList);
       this.$router.push({
         name: "settlement",
         query: {

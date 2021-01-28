@@ -68,6 +68,8 @@ export default {
       setTimeout(() => {
         // 手动清除 Toast
         Toast.clear();
+        console.log(this.addressInfo);
+        return
         self.$router.go(-1);
         Toast({
           message: "维护中",
