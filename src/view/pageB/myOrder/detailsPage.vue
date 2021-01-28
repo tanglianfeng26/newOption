@@ -76,7 +76,6 @@ export default {
     };
   },
   mounted(){
-      console.log(this.queryDatas);
       this.list = this.queryDatas.goodsOrder
   },
   methods: {

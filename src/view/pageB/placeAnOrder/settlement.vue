@@ -147,9 +147,10 @@ export default {
           .catch(() => {
             // on cancel
           });
-            return;
-      }else{
-        localStorage["price"] = Number(localStorage["price"]) - Number(this.priceS);
+        return;
+      } else {
+        localStorage["price"] =
+          Number(localStorage["price"]) - Number(this.priceS);
       }
       if (localStorage["order"] === undefined) {
         localStorage["order"] = [];
@@ -165,7 +166,7 @@ export default {
       obj.wordid = this.uuid();
       obj.createTime = this.newDetime();
       obj.status = "待审核";
-      obj.isStatus = 1
+      obj.isStatus = 1;
 
       this.objList.push(obj);
       localStorage["order"] = JSON.stringify(this.objList);

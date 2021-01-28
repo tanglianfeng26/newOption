@@ -132,14 +132,16 @@ export default {
           title: "营销工具",
           allList: [
             {
-              nav_title: "微小店",
+              nav_title: "幸运大转盘",
               imgUrl:
                 "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E5%BE%AE%E5%B0%8F%E5%BA%97@2x.png",
+              urlName: "homePage",
             },
             {
-              nav_title: "门店管理",
+              nav_title: "积分兑换商城",
               imgUrl:
                 "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E9%97%A8%E5%BA%97%E7%AE%A1%E7%90%86@2x.png",
+              urlName: "changePage",
             },
             {
               nav_title: "引流神器",

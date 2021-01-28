@@ -2,7 +2,12 @@
   <div id="goods">
     <search-tab @searchContent="receive" :input_content="placeholder" />
     <classification-goods @addPrice="getAddPrice" />
-    <foot-tabber :addNum="addPriceS" :numGoods="numGoods" @showTC="showT"  @toPay="ToPay" />
+    <foot-tabber
+      :addNum="addPriceS"
+      :numGoods="numGoods"
+      @showTC="showT"
+      @toPay="ToPay"
+    />
     <van-action-sheet v-model="show" title="已选商品">
       <div class="content" v-for="(item, index) in goodsCarList" :key="index">
         <div class="left_logo">
@@ -30,7 +35,7 @@
 import searchTab from "../../../components/searchTab/searchTab";
 import classificationGoods from "./classificationGoods";
 import footTabber from "../../../components/footTabber/footTabber";
-import { ActionSheet, Stepper, Toast, Icon } from "vant";
+import { ActionSheet, Stepper, Toast, Icon, Dialog } from "vant";
 
 export default {
   components: {
@@ -50,27 +55,39 @@ export default {
       numIndex: 27,
       goodsCarList: [],
       list: [],
+      searchListS: [],
     };
   },
+  mounted() {
+    if (localStorage["goods"] !== undefined) {
+      this.searchListS = JSON.parse(localStorage["goods"]);
+    }
+  },
   methods: {
-    ToPay(){
-      if(this.goodsCarList.length == 0) {
+    ToPay() {
+      if (this.goodsCarList.length == 0) {
         Toast("请添加商品");
         return;
       }
       this.$router.push({
         name: "settlement",
-        query:{
-          details: JSON.stringify(this.goodsCarList)
-        }
-      })
+        query: {
+          details: JSON.stringify(this.goodsCarList),
+        },
+      });
     },
     async del_goods(option) {
       const waitMe = await this.witeME();
       this.goodsCarList = this.goodsCarList.filter((item) => {
         return item.ID !== option;
       });
-      this.onChange();
+      this.numGoods = 0;
+      this.addPriceS = 0;
+      this.goodsCarList.forEach((item) => {
+        this.numGoods += item.goodsIndex;
+        this.addPriceS += parseFloat(item.price) * item.goodsIndex;
+      });
+      Toast.success("移除成功");
       if (this.goodsCarList.length == 0) {
         this.show = false;
       }
@@ -96,13 +113,41 @@ export default {
       }
       this.show = true;
     },
-    receive(option) {
+    //搜索
+    async receive(option) {
       if (option.length === 0) {
         Toast("请输入商品名称搜索");
         return;
       }
-      Toast.fail("功能未开启");
-      return;
+      const goodsListSearch = await this.searchList(option);
+      if (goodsListSearch.length > 0) {
+        var searchListItem = [];
+        goodsListSearch.forEach((item, index) => {
+          searchListItem.push(item.title);
+        });
+        Dialog.alert({
+          title: "搜索结果",
+          message: searchListItem,
+          theme: "round-button",
+        }).then(() => {
+          // on close
+        });
+      } else {
+        Toast.fail("搜索不到此商品");
+      }
+    },
+    searchList(datas) {
+      return new Promise((resolve, reject) => {
+        let commitList = [];
+        this.searchListS.forEach((item) => {
+          item.goods.forEach((icons) => {
+            if (icons.title.includes(datas)) {
+              commitList.push(icons);
+            }
+          });
+        });
+        resolve(commitList);
+      });
     },
     async getAddPrice(v) {
       const waitMe = await this.witeME();

@@ -56,7 +56,9 @@ export default {
       }
       if (this.formS.ems == "test" && this.formS.pass == "mt888888") {
         localStorage.setItem("phone", this.formS.ems);
-        this.$router.go(-1)
+        this.$router.replace({
+          name: "home"
+        })
       } else {
         Notify({ type: "danger", message: "账号或密码错误" });
       }

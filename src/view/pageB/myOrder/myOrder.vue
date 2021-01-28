@@ -26,19 +26,19 @@ export default {
       activeIndex: 0,
     };
   },
-  // watch:{
-  //   activeIndex(val){
-  //     console.log("父亲",val);
-  //   }
-  // },
+  watch: {
+    // activeIndex(val) {
+    // this.init()
+    // },
+  },
   created() {
-    if (this.$route.query.activeIndex === undefined) {
-      this.activeIndex = 0;
-    } else {
-      this.activeIndex = this.$route.query.activeIndex;
-    }
+    this.init();
   },
   methods: {
+    init() {
+      this.activeIndex = this.$route.query.activeIndex;
+      console.log("activeIndex", this.activeIndex);
+    },
     handleTool() {},
     getNavActiveIndex(v) {
       this.activeIndex = v;

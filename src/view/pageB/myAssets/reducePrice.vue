@@ -9,7 +9,6 @@
             type="text"
             placeholder="0.00"
             v-model="Addprice"
-            @click="show = true"
           />
         </div>
         <div class="beizu">减账金额至少1元起</div>

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import integral from './integral'//积分兑换模块
+import points from './points'//积分兑换模块
 import modelS from './modelS'//个人资料模块
+import draw from './draw' //幸运大转盘模块
 
 Vue.use(Router)
 
@@ -55,7 +56,9 @@ const routes = [
     },
     component: () => import("../view/page/mine.vue"),
   },
-  ...modelS
+  ...modelS,
+  ...draw,
+  ...points,
   // {
   //   path: '/',
   //   name: 'MarginBox',

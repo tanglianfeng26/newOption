@@ -9,7 +9,6 @@
             type="text"
             placeholder="0.00"
             v-model="Addprice"
-            @click="show = true"
           />
         </div>
         <div class="beizu">充帐金额至少100元起</div>

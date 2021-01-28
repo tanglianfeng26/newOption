@@ -2,7 +2,6 @@
   <div id="navtitle">
     <van-nav-bar
       :title="navTitle"
-      left-text="返回"
       left-arrow
       fixed
       @click-left="backUp"

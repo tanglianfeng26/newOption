@@ -18,7 +18,6 @@ export default {
   },
   methods: {
     routerChange(to, from) {
-      console.log(to);
       if (to.name === "share") {
         return;
       } else {

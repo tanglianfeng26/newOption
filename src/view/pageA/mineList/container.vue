@@ -17,6 +17,9 @@
         >
           <div class="Logo">
             <img :src="item.imgUrl" alt="" />
+            <div class="icons" v-if="item.numIndex > 0">
+              {{ item.numIndex > 99 ? "99+" : item.numIndex }}
+            </div>
           </div>
           <div class="Title">
             {{ item.title }}
@@ -58,24 +61,28 @@ export default {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/waitChack@2x.png",
           activeIndex: 1,
+          numIndex: 0,
         },
         {
           title: "待发货",
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/waitSent@2x.png",
           activeIndex: 2,
+          numIndex: 0,
         },
         {
           title: "待收货",
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/waitReceive@2x.png",
           activeIndex: 3,
+          numIndex: 0,
         },
         {
           title: "已完成",
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/waitSent@2x.png",
           activeIndex: 6,
+          numIndex: 0,
         },
       ],
       ListMenu: [
@@ -108,20 +115,42 @@ export default {
           clickName: "aboutWindows",
         },
       ],
+      orderlists: [],
     };
   },
+  mounted() {
+    this.initNum();
+    if (JSON.parse(localStorage["order"]) === undefined) {
+    } else {
+      this.orderlists = JSON.parse(localStorage["order"]);
+    }
+  },
   methods: {
-    jump_order(index){
+    initNum() {
+      if(this.orderlists.length > 0 ){
+      this.orderlists.forEach((item) => {
+        this.NavList.forEach((i) => {
+          if (i.activeIndex == item.isStatus) {
+            i.numIndex++;
+          }
+        });
+      });
+      }
+    },
+    jump_order(index) {
       this.$router.push({
         name: "myOrder",
-        query:{
-          activeIndex: index
-        }
+        query: {
+          activeIndex: index,
+        },
       });
     },
     jump_allOrder() {
       this.$router.push({
         name: "myOrder",
+        query: {
+          activeIndex: 0,
+        },
       });
     },
     differents(options) {
@@ -192,9 +221,28 @@ export default {
           width: 0.6rem;
           height: 0.6rem;
           margin-bottom: 0.1rem;
+          position: relative;
           img {
             width: 100%;
             height: 100%;
+          }
+          .icons {
+            position: absolute;
+            top: -15%;
+            left: 55%;
+            // min-width: 0.28rem;
+            height: 0.28rem;
+            border: 0.01rem solid #ff0202;
+            border-radius: 0.16rem;
+            box-shadow: 0rem 0.04rem 0.12rem 0rem rgba(0, 0, 0, 0.04);
+            font-size: 0.2rem;
+            color: #ff0202;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            padding: 0rem 0.08rem;
+            background-color: #fff;
           }
         }
         .Title {

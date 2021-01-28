@@ -149,6 +149,9 @@ export default {
       ],
     };
   },
+  mounted() {
+    localStorage["goods"] = JSON.stringify(this.goodsClassList);
+  },
   methods: {
     activeGoods(k) {
       this.activeGoodsNow = k;

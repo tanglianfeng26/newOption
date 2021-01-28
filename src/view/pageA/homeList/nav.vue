@@ -43,11 +43,11 @@ export default {
     return {
       navList: [
         {
-          num: "9876.00",
+          num: "0",
           label: "金币",
         },
         {
-          num: "345.00",
+          num: "0",
           label: "奖励",
         },
         {
@@ -55,7 +55,7 @@ export default {
           label: "记账",
         },
         {
-          num: "123",
+          num: "0",
           label: "存货",
         },
       ],

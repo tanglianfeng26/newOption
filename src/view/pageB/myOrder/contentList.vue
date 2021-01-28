@@ -1,11 +1,7 @@
 <template>
   <div id="contentList">
     <div class="big_box" v-if="NowOrderList.length > 0">
-      <div
-        class="orderList"
-        v-for="(item, index) in NowOrderList"
-        :key="index"
-      >
+      <div class="orderList" v-for="(item, index) in NowOrderList" :key="index">
         <div class="headerTitle ty">
           <div class="up">
             <div>下单人：{{ item.address.name }}</div>
@@ -13,7 +9,12 @@
           </div>
           <div class="down">{{ item.createTime }}</div>
         </div>
-        <div class="AgoodsContainer ty" v-for="(i, k) in item.datas" :key="k" @click="jump_page(item)">
+        <div
+          class="AgoodsContainer ty"
+          v-for="(i, k) in item.datas"
+          :key="k"
+          @click="jump_page(item)"
+        >
           <div class="goodsLogoImg">
             <img :src="i.imgUrl" alt="" />
           </div>
@@ -33,7 +34,7 @@
             >
           </div>
           <div class="btn">
-            <div class="btn_clear" @click="cancel_order">取消订单</div>
+            <div class="btn_clear" @click="cancel_order(item)">取消订单</div>
           </div>
         </div>
       </div>
@@ -219,19 +220,20 @@ export default {
     //   }
   },
   mounted() {
-    if (localStorage["order"] !== undefined) {
-      this.orderList = JSON.parse(localStorage["order"]);
-    }
-    if (this.conData === 0) {
-      this.initAllList();
-    } else {
-      this.initList();
-    }
-    
+    this.init();
   },
   methods: {
+    init() {
+      if (localStorage["order"] !== undefined) {
+        this.orderList = JSON.parse(localStorage["order"]);
+      }
+      if (Number(this.conData) === 0) {
+        this.initAllList();
+      } else {
+        this.initList();
+      }
+    },
     jump_page(option) {
-      console.log(JSON.stringify(option));
       this.$router.push({
         name: "detailsPage",
         query: {
@@ -253,8 +255,28 @@ export default {
         name: "goods",
       });
     },
-    cancel_order() {
-      Toast.fail("模拟数据");
+    async cancel_order(res) {
+      const initOrder = await this.initOrderList();
+      this.orderList = this.orderList.filter((item) => {
+        return item.wordid !== res.wordid;
+      });
+      localStorage["order"] = JSON.stringify(this.orderList);
+      this.init();
+    },
+    initOrderList() {
+      return new Promise((resolve, reject) => {
+        Toast.loading({
+          duration: 0, // 持续展示 toast
+          forbidClick: true,
+          message: "订单取消中",
+        });
+        setTimeout(() => {
+          // 手动清除 Toast
+          Toast.clear();
+          Toast.success("订单取消成功");
+          resolve();
+        }, 1000);
+      });
     },
   },
 };
