@@ -1,6 +1,10 @@
 <template>
   <div id="AddAddress">
-    <nav-title :title="title" :navRight="rightIcon" @changeTool="handleTool" />
+    <nav-title
+      :title="checkRouterQuery ? '修改地址' : '新增地址'"
+      :navRight="rightIcon"
+      @changeTool="handleTool"
+    />
     <div class="big_box">
       <div class="ReceivingInformation">
         <div class="list">
@@ -52,15 +56,11 @@
         <div class="btn_submit" @click="sumbit">保存</div>
       </div>
     </div>
-    <van-popup
-      v-model="showPopple"
-      round
-      position="bottom"
-      :style="{ height: '30%' }"
-    >
+    <van-popup v-model="showPopple" round position="bottom">
       <van-area
-        title="标题"
+        title="地区"
         :area-list="areaList"
+        :value="activeAddress"
         @confirm="result"
         @cancel="showPopple = false"
     /></van-popup>
@@ -86,10 +86,23 @@ export default {
       checked: false,
       showPopple: false,
       formTabel: {},
+      checkRouterQuery: false, //查看路由是否带入参数
+      activeAddress: "", //初始选择区域
     };
   },
-  created() {},
+  created() {
+    this.init(); //初始化
+  },
   methods: {
+    init() {
+      if (this.$route.query.cont !== undefined) {
+        this.checkRouterQuery = true;
+        this.formTabel = JSON.parse(this.$route.query.cont);
+        this.checked = this.formTabel.status;
+        var allAddressList = this.formTabel.address;
+        this.activeAddress = allAddressList[allAddressList.length - 1].code;
+      }
+    },
     handleTool() {},
     result(v) {
       var obj = [];
@@ -102,11 +115,15 @@ export default {
     // 提交
     async sumbit() {
       this.formTabel.status = this.checked;
-      console.log(this.formTabel);
-      this.getList();
+      if (this.checkRouterQuery) {
+        this.changeList();
+      } else {
+        this.getList();
+      }
       const awa = await this.animat();
       this.$router.go(-1);
     },
+    // 模拟真实加载
     animat() {
       return new Promise((resolve, reject) => {
         Toast.loading({
@@ -122,16 +139,56 @@ export default {
       });
     },
     //保存到缓存
-    getList() {
+    async getList() {
       if (localStorage["addressList"] === undefined) {
         var obj = [];
+        this.formTabel.id = this.uuid();
         obj.push(this.formTabel);
         localStorage["addressList"] = JSON.stringify(obj);
       } else {
-        var objs = JSON.parse(localStorage["addressList"]);
-        objs.push(this.formTabel);
-        localStorage["addressList"] = JSON.stringify(objs);
+        this.formTabel.id = this.uuid();
+        const awit = await this.forE(this.formTabel.status);
+        awit.push(this.formTabel);
+        localStorage["addressList"] = JSON.stringify(awit);
       }
+    },
+    //修改地址逻辑
+    async changeList() {
+      var self = this;
+      const awitStatus = await this.forE(this.formTabel.status);
+      const awitCome = await this.waitMe(awitStatus);
+      localStorage["addressList"] = JSON.stringify(awitCome);
+    },
+    waitMe(datas) {
+      return new Promise((resolve, reject) => {
+        var self = this;
+        let obj = datas.map((item) => {
+          return item.id === self.formTabel.id ? self.formTabel : item;
+        });
+        resolve(obj);
+      });
+    },
+    //判断是否选为默认地址
+    forE(bool) {
+      return new Promise((resolve, reject) => {
+        var objList = JSON.parse(localStorage["addressList"]);
+        if (bool) {
+          objList.forEach((item) => {
+            if (item.status) {
+              item.status = false;
+            }
+          });
+          resolve(objList);
+        } else {
+          resolve(objList);
+        }
+      });
+    },
+    //随机订单号
+    uuid() {
+      var rnd = "";
+      for (var i = 0; i < 16; i++) rnd += Math.floor(Math.random() * 10);
+      return rnd;
     },
   },
 };

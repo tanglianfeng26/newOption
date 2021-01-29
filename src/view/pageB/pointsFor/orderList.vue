@@ -3,7 +3,15 @@
     <nav-title :title="title" :navRight="rightIcon" @changeTool="handleTool" />
     <div class="big_box">
       <div v-if="orderList.length === undefined">
-        <van-empty description="暂无兑换记录" />
+        <van-empty description="暂无兑换记录"
+          ><van-button
+            round
+            type="danger"
+            class="bottom-button"
+            @click="jump_shop"
+            >前往兑换</van-button
+          ></van-empty
+        >
       </div>
       <div
         class="orderBox"
@@ -40,11 +48,12 @@
 
 <script>
 import navTitle from "../../../components/navTitle/navtitle";
-import { Empty } from "vant";
+import { Empty,Button } from "vant";
 export default {
   components: {
     navTitle,
     [Empty.name]: Empty,
+    [Button.name]:Button
   },
   data() {
     return {
@@ -59,6 +68,11 @@ export default {
     }
   },
   methods: {
+    jump_shop() {
+      this.$router.push({
+        name: "changePage",
+      });
+    },
     handleTool() {},
     jump_order(v) {
       this.$router.push({
@@ -73,6 +87,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.bottom-button {
+  width: 160px;
+  height: 40px;
+  background-color: #1e87fe;
+  border: none;
+  letter-spacing: 0.03rem;
+}
 .big_box {
   padding: 0rem 0.24rem 0.24rem;
   box-sizing: border-box;

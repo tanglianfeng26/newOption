@@ -12,11 +12,7 @@
           <div @click="jump_reducePrice"><i class="icon">-</i> 减帐</div>
         </div>
         <div class="my_account tpey" @click="my_accounting">
-          <div>我的记账</div>
-          <div class="i_w"></div>
-        </div>
-        <div class="down_account tpey" @click="dowm_level">
-          <div>下级记账</div>
+          <div>记账记录</div>
           <div class="i_w"></div>
         </div>
       </div>
@@ -54,9 +50,6 @@ export default {
       this.$router.push({
         name: "accountingRecords",
       });
-    },
-    dowm_level() {
-      Toast("未编译");
     },
   },
 };

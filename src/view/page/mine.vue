@@ -12,8 +12,8 @@
           </div>
           <div class="nav_listTile">
             <div class="nav_listText">
-              <div class="nav_listText_header">唐先生</div>
-              <div class="nav_listText_p">总代理(A001)</div>
+              <div class="nav_listText_header">{{ phoneTabel.name }}</div>
+              <div class="nav_listText_p">{{ phoneTabel.level }}</div>
             </div>
             <div class="nav_listJt" @click="changePersonalData"></div>
           </div>
@@ -27,23 +27,41 @@
 
 <script>
 import tabBer from "../../components/tabber/tabber";
-import container from "../pageA/mineList/container"
+import container from "../pageA/mineList/container";
 export default {
   components: {
-    tabBer,container
+    tabBer,
+    container,
   },
-  data(){
-      return{
-
-      }
+  data() {
+    return {
+      phoneTabel: {},
+    };
   },
-  methods:{
-      changePersonalData(){
-          this.$router.push({
-              name: "personalData"
-          })
+  created() {
+    this.initChange();
+  },
+  methods: {
+    initChange() {
+      if (localStorage["phone"] === "tourists") {
+        console.log(123);
+        this.phoneTabel = {
+          name: "游客",
+          level: "无代理权限",
+        };
+      } else {
+        this.phoneTabel = {
+          name: "卢老爷",
+          level: "总代理（A001）",
+        };
       }
-  }
+    },
+    changePersonalData() {
+      this.$router.push({
+        name: "personalData",
+      });
+    },
+  },
 };
 </script>
 
@@ -79,10 +97,10 @@ export default {
         }
       }
       .nav_listTile {
-          display: flex;
-          flex: 1;
-          align-items: center;
-          justify-content: space-between;
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: space-between;
         .nav_listText {
           display: flex;
           flex-direction: column;
@@ -96,13 +114,13 @@ export default {
             font-weight: 500;
           }
         }
-        .nav_listJt{
-            width: 0.15rem;
-            height: 0.15rem;
-            border: 0.02rem solid #fff;
-            transform: rotate(45deg);
-            border-left: none;
-            border-bottom: none;
+        .nav_listJt {
+          width: 0.15rem;
+          height: 0.15rem;
+          border: 0.02rem solid #fff;
+          transform: rotate(45deg);
+          border-left: none;
+          border-bottom: none;
         }
       }
     }

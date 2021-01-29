@@ -44,7 +44,15 @@
             </div>
           </div>
           <div v-else>
-            <van-empty description="暂无中奖记录" />
+            <van-empty description="暂无中奖记录">
+              <van-button
+                round
+                type="danger"
+                class="bottom-button"
+                @click="jump_shop"
+                >前往抽奖</van-button
+              >
+            </van-empty>
           </div>
         </div>
       </div>
@@ -54,9 +62,9 @@
 
 <script>
 import navTitle from "../../../components/navTitle/navtitle";
-import { Empty } from "vant";
+import { Empty, Button } from "vant";
 export default {
-  components: { navTitle, [Empty.name]: Empty },
+  components: { navTitle, [Empty.name]: Empty, [Button.name]: Button },
   data() {
     return {
       title: "中奖记录",
@@ -76,9 +84,9 @@ export default {
     checkDetails(v) {
       this.$router.push({
         name: "checkDetails",
-        query:{
-            code: v
-        }
+        query: {
+          code: v,
+        },
       });
     },
     //领取奖品
@@ -90,11 +98,23 @@ export default {
         },
       });
     },
+    jump_shop() {
+      this.$router.push({
+        name: "homePage",
+      });
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
+.bottom-button {
+  width: 160px;
+  height: 40px;
+  background-color: #1e87fe;
+  border: none;
+  letter-spacing: 0.03rem;
+}
 .big_box {
   position: absolute;
   top: 0.84rem;

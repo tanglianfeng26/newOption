@@ -9,51 +9,77 @@
             alt=""
           />
         </div>
-        <div>{{queryDatas.status}}</div>
+        <div>{{ queryDatas.status }}</div>
       </div>
       <div class="addressText dy">
         <div class="addressLogo">
-          <van-icon name="location-o" />
+          <van-icon name="location" />
         </div>
         <div class="addressAndTa">
-          <h4>{{queryDatas.address.name}}<i>{{queryDatas.address.tel}}</i></h4>
-          <p>{{queryDatas.address.address}}</p>
+          <h4>
+            {{ queryDatas.address.name }}<i>{{ queryDatas.address.tel }}</i>
+          </h4>
+          <p v-if="queryDatas.address.address[2]">
+            {{
+              queryDatas.address.address[0].name +
+              queryDatas.address.address[1].name +
+              queryDatas.address.address[2].name +
+              queryDatas.address.detailsAddress
+            }}
+          </p>
+          <p v-else>
+            {{
+              queryDatas.address.address[0].name +
+              queryDatas.address.address[1].name +
+              queryDatas.address.detailsAddress
+            }}
+          </p>
         </div>
       </div>
       <div class="orderList">
         <div class="headerTitle ty">
           <div class="up">
-            <div>下单店铺：{{queryDatas.shopName}}</div>
+            <div>下单店铺：{{ queryDatas.shopName }}</div>
           </div>
         </div>
-        <div v-for="(item,index) in queryDatas.datas" :key="index" class="AgoodsContainer ty">
+        <div
+          v-for="(item, index) in queryDatas.datas"
+          :key="index"
+          class="AgoodsContainer ty"
+        >
           <div class="goodsLogoImg">
             <img :src="item.imgUrl" alt="" />
           </div>
           <div class="goodsText">
-            <h4>{{item.title}}</h4>
+            <h4>{{ item.title }}</h4>
             <!-- <p>{{item.note}}</p> -->
             <div class="priceAndNum">
-              <div class="price">￥{{item.price}}</div>
-              <div class="Num">X {{item.goodsIndex}}</div>
+              <div class="price">￥{{ item.price }}</div>
+              <div class="Num">X {{ item.goodsIndex }}</div>
             </div>
           </div>
         </div>
         <div class="footerGoods">
           <div class="allPrice">
-            共{{queryDatas.goodsNum}}件商品 合计：<span>￥{{queryDatas.goodsPrice}}</span>
+            共{{ queryDatas.goodsNum }}件商品 合计：<span
+              >￥{{ queryDatas.goodsPrice }}</span
+            >
           </div>
         </div>
       </div>
       <div class="orderText ty">
-          <div class="dis-f">
-              <div class="left">订单编号：</div>
-              <div class="right">{{queryDatas.wordid}}</div>
-          </div>
-          <div class="dis-f">
-              <div class="left">下单时间：</div>
-              <div class="right">{{queryDatas.createTime}}</div>
-          </div>
+        <div class="dis-f">
+          <div class="left">订单编号：</div>
+          <div class="right">{{ queryDatas.wordid }}</div>
+        </div>
+        <div class="dis-f">
+          <div class="left">下单时间：</div>
+          <div class="right">{{ queryDatas.createTime }}</div>
+        </div>
+        <div class="dis-f" v-if="queryDatas.successTime">
+          <div class="left">审核时间：</div>
+          <div class="right">{{ queryDatas.successTime }}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -72,11 +98,12 @@ export default {
       title: "订单详情",
       rightIcon: "",
       queryDatas: JSON.parse(this.$route.query.datas),
-      list:[]
+      list: [],
     };
   },
-  mounted(){
-      this.list = this.queryDatas.goodsOrder
+  mounted() {
+    this.list = this.queryDatas.goodsOrder;
+    console.log(this.queryDatas);
   },
   methods: {
     handleTool() {},
@@ -114,6 +141,7 @@ export default {
     .addressLogo {
       margin-right: 0.2rem;
       font-size: 0.42rem;
+      color: #1e87fe;
     }
     .addressAndTa {
       flex: 1;
@@ -209,17 +237,17 @@ export default {
       }
     }
   }
-  .orderText{
-      .dis-f{
-          display: flex;
-          align-items: center;
-          font-size: 0.24rem;
-          color: #333;
-          margin-bottom: 0.1rem;
-      }
-      .dis-f:last-child{
-          margin-bottom: 0rem;
-      }
+  .orderText {
+    .dis-f {
+      display: flex;
+      align-items: center;
+      font-size: 0.24rem;
+      color: #333;
+      margin-bottom: 0.1rem;
+    }
+    .dis-f:last-child {
+      margin-bottom: 0rem;
+    }
   }
 }
 .dy {

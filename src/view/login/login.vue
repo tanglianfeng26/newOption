@@ -15,7 +15,7 @@
       <div class="span">密码</div>
       <input type="password" v-model="formS.pass" placeholder="请输入密码" />
     </div>
-    <div class="d-right"><i @click="forget">忘记密码</i></div>
+    <div class="d-right"><i @click="forget">游客进入</i></div>
     <div class="d-login" @click="get_login">登录</div>
     <div class="banding_login">已绑定微信可直接登录</div>
     <div class="img_wx">
@@ -57,14 +57,21 @@ export default {
       if (this.formS.ems == "test" && this.formS.pass == "mt888888") {
         localStorage.setItem("phone", this.formS.ems);
         this.$router.replace({
-          name: "home"
-        })
+          name: "home",
+        });
       } else {
         Notify({ type: "danger", message: "账号或密码错误" });
       }
     },
     forget() {
-      Toast.fail("功能未开启");
+      if (localStorage["first"] === undefined) {
+        localStorage["first"] = "yes";
+      }
+      localStorage["phone"] = "tourists";
+      this.$router.replace({
+        name: "home",
+      });
+      console.log(1);
     },
     jump_wx() {
       Toast.fail("功能未开启");

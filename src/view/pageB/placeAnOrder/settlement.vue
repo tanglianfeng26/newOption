@@ -11,7 +11,21 @@
           <h4>
             {{ arrAddress.name }} <i>{{ arrAddress.tel }}</i>
           </h4>
-          <p>{{ arrAddress.address }}</p>
+          <p v-if="arrAddress.address[2]">
+            {{
+              arrAddress.address[0].name +
+              arrAddress.address[1].name +
+              arrAddress.address[2].name +
+              arrAddress.detailsAddress
+            }}
+          </p>
+          <p v-else>
+            {{
+              arrAddress.address[0].name +
+              arrAddress.address[1].name +
+              arrAddress.detailsAddress
+            }}
+          </p>
         </div>
         <div class="dyh"></div>
       </div>
@@ -67,26 +81,43 @@ export default {
       objList: [],
     };
   },
-  mounted() {
+  created() {
     this.priceAll();
     this.initAddress();
   },
   methods: {
     initAddress() {
-      this.arrAddress = JSON.parse(localStorage.getItem("addressText"));
-      if (this.arrAddress === null) {
+      if (localStorage["addressList"] === undefined) {
         this.getAddress = false;
       } else {
-        this.getAddress = true;
+        this.initAddActive();
+        // this.getAddress = true;
       }
     },
     addAddress() {
       this.$router.push({
-        name: "address",
+        name: "addressONE",
         query: {
           id: 9999,
         },
       });
+    },
+    initAddActive() {
+      if (localStorage["addressActive"] === undefined) {
+        var objS = JSON.parse(localStorage["addressList"]);
+        this.arrAddress = objS.filter((item) => {
+          return item.status === true;
+        });
+        if (this.arrAddress.length > 0) {
+          this.arrAddress = this.arrAddress[0];
+        }
+      } else {
+        this.arrAddress = JSON.parse(localStorage["addressActive"]);
+      }
+      console.log("arrAddress", this.arrAddress);
+      if (this.arrAddress.length !== 0) {
+        this.getAddress = true;
+      }
     },
     async priceAll() {
       const priceSt = await this.price();
@@ -196,6 +227,9 @@ export default {
       }, 1000);
     },
   },
+  beforeDestroy(){
+    delete localStorage["addressActive"];
+  }
 };
 </script>
 

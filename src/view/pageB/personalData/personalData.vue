@@ -71,7 +71,7 @@ export default {
         },
         {
           label: "手机号",
-          datas: "1360271268x",
+          datas: "136027126XX",
         },
         {
           label: "微信号",
@@ -79,7 +79,7 @@ export default {
         },
         {
           label: "地址",
-          datas: "广东省广州市天河区伍仙桥",
+          datas: "广东省广州市天河区伍仙桥XXX",
         },
       ],
       itemList: [

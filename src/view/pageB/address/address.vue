@@ -49,8 +49,8 @@ export default {
       if (query.id === 9999) {
         localStorage.setItem("addressText", JSON.stringify(v));
         this.$router.go(-1);
-      }else{
-      Toast.success("选中" + v.name);
+      } else {
+        Toast.success("选中" + v.name);
       }
     },
     handleTool() {},

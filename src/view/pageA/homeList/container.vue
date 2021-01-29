@@ -7,7 +7,12 @@
       </div>
     </div>
     <div class="ty dis-f container_secordBox">
-      <div class="team_list" v-for="(item, index) in teamList" :key="index" @click="jump_fun(item.urlName)">
+      <div
+        class="team_list"
+        v-for="(item, index) in teamList"
+        :key="index"
+        @click="jump_fun(item.urlName)"
+      >
         <div class="team_listImg">
           <img :src="item.imgUrl" alt="" />
         </div>
@@ -30,7 +35,7 @@
           v-for="(item, index) in dbList"
           :key="index"
         >
-          <div class="childrenLogoImg">
+          <div class="childrenLogoImg" @click="jump_sh(item.urlName)">
             <img :src="item.imgUrl" alt="" />
             <div class="numTs" v-if="item.num > 0">
               {{ item.num > 99 ? "99+" : item.num }}
@@ -82,58 +87,90 @@ export default {
       teamList: [
         {
           imgUrl:
-            "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E6%89%AB%E7%A0%81%E5%8F%91%E8%B4%A7@2x.png",
-          label: "扫码发货",
-          urlName: "sweepCodeDelivery"
+            "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E6%88%91%E7%9A%84%E8%B5%84%E4%BA%A7@2x.png",
+          label: "我的资产",
+          urlName: "myAssets",
         },
         {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E6%88%91%E8%A6%81%E8%AE%A2%E8%B4%A7@2x.png",
           label: "我要订货",
-          urlName: "goods"
+          urlName: "goods",
         },
         {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E8%AE%A2%E5%8D%95%E7%AE%A1%E7%90%86@2x.png",
           label: "订单管理",
-          urlName: "myOrder"
+          urlName: "myOrder",
         },
         {
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E9%82%80%E8%AF%B7%E7%BB%8F%E9%94%80%E5%95%86@2x.png",
           label: "邀请代理",
-          urlName: "InviteAgentg"
+          urlName: "InviteAgentg",
         },
       ],
       dbList: [
         {
-          num: 991,
+          num: 0,
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E4%B8%8B%E7%BA%A7%E8%AE%A2%E5%8D%95%E5%AE%A1%E6%A0%B8@2x.png",
-          label: "下级订单审核",
+          label: "订单审核",
+          urlName: "orderPage",
         },
         {
-          num: 2,
+          num: 0,
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E4%B8%8B%E7%BA%A7%E5%8D%87%E7%BA%A7%E5%AE%A1%E6%A0%B8@2x.png",
-          label: "下级升级审核",
+          label: "抽奖订单",
+          urlName: "drawRecord",
         },
         {
           num: 0,
           imgUrl:
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E4%B8%8B%E7%BA%A7%E7%94%B3%E8%AF%B7%E5%AE%A1%E6%A0%B8@2x.png",
-          label: "下级申请审核",
+          label: "兑换订单",
+          urlName: "orderList",
         },
       ],
     };
   },
-  methods:{
-    jump_fun(option){
+  created() {
+    this.initIndex();
+    this.initLuckyDrawIndex();
+    this.initIngIndex();
+  },
+  methods: {
+    initIndex() {
+      var obj = JSON.parse(localStorage["order"]);
+      obj = obj.filter((item, index) => {
+        return item.isStatus === 1;
+      });
+      this.dbList[0].num = obj.length;
+    },
+    initLuckyDrawIndex() {
+      if (localStorage["luckyOrder"] !== undefined) {
+        var obj = JSON.parse(localStorage["luckyOrder"]);
+        this.dbList[1].num = obj.length;
+      }
+    },
+    initIngIndex() {
+      if (localStorage["pointsList"] !== undefined) {
+        var obj = JSON.parse(localStorage["pointsList"]);
+        this.dbList[2].num = obj.length;
+      }
+    },
+    jump_fun(option) {
       this.$router.push({
-        name: option
-      })
-    }
-  }
+        name: option,
+      });
+    },
+    jump_sh(v) {
+      this.$router.push({
+        name: v,
+      });
+    },
+  },
 };
 </script>
 

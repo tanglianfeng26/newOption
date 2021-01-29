@@ -19,8 +19,8 @@
           />
         </div>
         <div class="nav_center_content">
-          <h4>唐先生</h4>
-          <p>总代理(A001)</p>
+          <h4>{{phoneTabel.name}}</h4>
+          <p>{{phoneTabel.level}}</p>
         </div>
       </div>
       <div class="nav_footer">
@@ -59,9 +59,27 @@ export default {
           label: "存货",
         },
       ],
+      phoneTabel: {},
     };
   },
+  created() {
+    this.changeForm();
+  },
   methods: {
+    changeForm() {
+      if (localStorage["phone"] === "tourists") {
+        console.log(123);
+        this.phoneTabel = {
+          name: "游客",
+          level: "无代理权限",
+        };
+      } else {
+        this.phoneTabel = {
+          name: "卢老爷",
+          level: "总代理（A001）",
+        };
+      }
+    },
     go_Message() {
       this.$router.push({
         name: "message",

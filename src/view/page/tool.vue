@@ -105,11 +105,12 @@ export default {
             //   imgUrl:
             //     "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E9%80%80%E8%B4%A7%E7%94%B3%E8%AF%B7@2x.png",
             // },
-            // {
-            //   nav_title: "退货列表",
-            //   imgUrl:
-            //     "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E9%80%80%E8%B4%A7%E5%88%97%E8%A1%A8@2x.png",
-            // },
+            {
+              nav_title: "订单审核",
+              imgUrl:
+                "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/%E9%80%80%E8%B4%A7%E5%88%97%E8%A1%A8@2x.png",
+              urlName: "orderPage",
+            },
           ],
         },
         {

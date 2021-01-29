@@ -6,7 +6,7 @@ export default [
         path: baseUrl.draw + 'homePage',
         name: 'homePage',
         meta: {
-            title: '中奖记录',
+            title: '幸运大转盘',
         },
         component: () => import("../view/pageB/drawLucky/homePage.vue")
     },

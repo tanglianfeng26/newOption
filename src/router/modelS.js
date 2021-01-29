@@ -23,6 +23,15 @@ export default [
     },
 
     {
+        path: baseUrl.home + 'orderPage',
+        name: 'orderPage',
+        meta: {
+            title: '订单审核',
+        },
+        component: () => import("../view/pageB/orderReview/orderPage.vue")
+    },
+
+    {
         path: baseUrl.mine + 'personalData',
         name: 'personalData',
         meta: {

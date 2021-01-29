@@ -98,7 +98,7 @@ export default {
             "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/xinkongjiaH5/self/selfIMG/%E5%9C%B0%E5%9D%80%E7%AE%A1%E7%90%86@2x.png",
           title: "地址管理",
           pushTo: "",
-          clickName: "address",
+          clickName: "addressONE",
         },
         {
           imgUrl:
@@ -124,13 +124,13 @@ export default {
   methods: {
     async newinit() {
       const aiw = await this.getOrder();
-      this.initNum()
+      this.initNum();
     },
     getOrder() {
       return new Promise((resolve, reject) => {
         if (localStorage["order"] !== undefined) {
           this.orderlists = JSON.parse(localStorage["order"]);
-          resolve()
+          resolve();
         }
       });
     },
@@ -173,9 +173,9 @@ export default {
           // on close
         });
       }
-      if (options === "address") {
+      if (options === "addressONE") {
         this.$router.push({
-          name: "address",
+          name: "addressONE",
         });
       }
       if (options === "changeM") {
@@ -186,10 +186,19 @@ export default {
       }
     },
     exit_login() {
-      localStorage.removeItem("phone");
-      this.$router.replace({
-        name: "login",
-      });
+      Dialog.confirm({
+        title: "提示",
+        message: "确定退出登入吗？",
+      })
+        .then(() => {
+          localStorage.removeItem("phone");
+          this.$router.replace({
+            name: "login",
+          });
+        })
+        .catch(() => {
+          // on cancel
+        });
     },
   },
 };
