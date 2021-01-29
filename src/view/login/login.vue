@@ -71,7 +71,6 @@ export default {
       this.$router.replace({
         name: "home",
       });
-      console.log(1);
     },
     jump_wx() {
       Toast.fail("功能未开启");

@@ -68,7 +68,6 @@ export default {
   methods: {
     changeForm() {
       if (localStorage["phone"] === "tourists") {
-        console.log(123);
         this.phoneTabel = {
           name: "游客",
           level: "无代理权限",

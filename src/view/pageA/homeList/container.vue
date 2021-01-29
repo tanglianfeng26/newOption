@@ -142,11 +142,13 @@ export default {
   },
   methods: {
     initIndex() {
-      var obj = JSON.parse(localStorage["order"]);
-      obj = obj.filter((item, index) => {
-        return item.isStatus === 1;
-      });
-      this.dbList[0].num = obj.length;
+      if (localStorage["order"] !== undefined) {
+        var obj = JSON.parse(localStorage["order"]);
+        obj = obj.filter((item, index) => {
+          return item.isStatus === 1;
+        });
+        this.dbList[0].num = obj.length;
+      }
     },
     initLuckyDrawIndex() {
       if (localStorage["luckyOrder"] !== undefined) {

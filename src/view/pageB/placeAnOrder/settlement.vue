@@ -159,7 +159,7 @@ export default {
     },
     submit() {
       var self = this;
-      if (this.arrAddress === null) {
+      if (this.arrAddress.length !== undefined) {
         Notify({ type: "danger", message: "请选择地址" });
         return;
       }

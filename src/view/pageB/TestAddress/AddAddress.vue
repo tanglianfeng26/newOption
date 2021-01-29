@@ -70,7 +70,7 @@
 <script>
 import area from "../../../../static/area";
 import navTitle from "../../../components/navTitle/navtitle";
-import { Switch, Popup, Area, Toast } from "vant";
+import { Switch, Popup, Area, Toast, Notify } from "vant";
 export default {
   components: {
     navTitle,
@@ -88,6 +88,7 @@ export default {
       formTabel: {},
       checkRouterQuery: false, //查看路由是否带入参数
       activeAddress: "", //初始选择区域
+      checkPhone: /^1[3|4|5|7|8][0-9]{9}$/
     };
   },
   created() {
@@ -114,6 +115,22 @@ export default {
     },
     // 提交
     async sumbit() {
+      if (!this.formTabel.name) {
+        Notify({ type: "danger", message: "请输入姓名" });
+        return;
+      }
+      if (!(this.checkPhone.test(this.formTabel.tel))) {
+        Notify({ type: "danger", message: "请输入手机号" });
+        return;
+      }
+      if (!this.formTabel.address) {
+        Notify({ type: "danger", message: "请选择地区" });
+        return;
+      }
+      if (!this.formTabel.detailsAddress) {
+        Notify({ type: "danger", message: "请输入详细地址" });
+        return;
+      }
       this.formTabel.status = this.checked;
       if (this.checkRouterQuery) {
         this.changeList();

@@ -51,7 +51,6 @@
       v-model="showPopple"
       round
       position="bottom"
-      :style="{ height: '30%' }"
     >
       <van-area
         title="标题"
@@ -81,6 +80,7 @@ export default {
         detailed: "",
       },
       goodsA: {},
+      checkPhone: /^1[3|4|5|7|8][0-9]{9}$/,
     };
   },
   created() {
@@ -103,7 +103,7 @@ export default {
         Notify({ type: "danger", message: "请输入收货人姓名" });
         return;
       }
-      if (this.tableContent.tel.length === 0) {
+      if (!this.checkPhone.test(this.tableContent.tel)) {
         Notify({ type: "danger", message: "请输入收货人手机号" });
         return;
       }
