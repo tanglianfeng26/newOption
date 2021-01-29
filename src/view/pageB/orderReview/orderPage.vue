@@ -70,10 +70,12 @@ export default {
   methods: {
     //初始化订单
     initList() {
-      var obj = JSON.parse(localStorage["order"]);
-      this.NowOrderList = obj.filter((item,index) => {
-          return item.isStatus === 1
-      })
+      if (localStorage["order"] !== undefined) {
+        var obj = JSON.parse(localStorage["order"]);
+        this.NowOrderList = obj.filter((item, index) => {
+          return item.isStatus === 1;
+        });
+      }
     },
     async cancel_order(data) {
       var obj = JSON.parse(localStorage["order"]);
@@ -81,7 +83,7 @@ export default {
         if (String(item.wordid) === String(data)) {
           item.isStatus = 2;
           item.status = "待发货";
-          item.successTime = this.newDetime()
+          item.successTime = this.newDetime();
         }
       });
       localStorage["order"] = JSON.stringify(obj);
