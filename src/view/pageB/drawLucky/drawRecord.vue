@@ -164,7 +164,6 @@ export default {
             margin-right: 0.2rem;
             width: 1.2rem;
             height: 1.2rem;
-            background-color: skyblue;
             img {
               width: 100%;
               height: 100%;

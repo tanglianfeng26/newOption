@@ -141,7 +141,7 @@ export default {
                 "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E9%9D%A2%E8%86%9C@2x.png",
               title: "补水保湿面膜",
               inventory: 6521,
-              price: "79.90",
+              price: "79.00",
               ID: 101,
             },
           ],

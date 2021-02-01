@@ -6,6 +6,9 @@
       <van-tabbar-item replace to="/team" icon="friends-o"
         >团队</van-tabbar-item 
       >
+      <van-tabbar-item replace to="/shopCar" icon="bag-o"
+        >微商城</van-tabbar-item 
+      >
       <van-tabbar-item replace to="/mine" icon="user-o"
         >我的</van-tabbar-item
       >

@@ -6,14 +6,18 @@
 
 <script>
 import "./assets/rem";
+import shoplist from "../static/shopList";
 export default {
   name: "App",
   watch: {
     $route: "routerChange",
   },
-  mounted(){
-    if(localStorage["price"] === undefined){
-    localStorage["price"]= 5000;
+  mounted() {
+    if (localStorage["price"] === undefined) {
+      localStorage["price"] = 5000;
+    }
+    if (localStorage["shopList"] === undefined) {
+      localStorage["shopList"] = JSON.stringify(shoplist);
     }
   },
   methods: {

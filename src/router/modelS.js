@@ -1,7 +1,8 @@
 const baseUrl = {
     mine: "/mine/",
     home: "/home/",
-    tool: "/tool/"
+    tool: "/tool/",
+    shopCar: "/shopCar/"
 }
 export default [
 
@@ -159,5 +160,13 @@ export default [
             title: "记账记录"
         },
         component: () => import("../view/pageB/myAssets/accountingRecords.vue")
+    },
+    {
+        path: baseUrl.shopCar + "goodsInfo",
+        name: "goodsInfo",
+        meta: {
+            title: "商品详情"
+        },
+        component: () => import("../view/pageA/shopCar/goodsInfo.vue")
     },
 ]
