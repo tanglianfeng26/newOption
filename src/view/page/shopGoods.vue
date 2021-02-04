@@ -1,22 +1,19 @@
 <template>
-  <div id="shopCar">
+  <div id="shopGoods">
     <div class="big_box">
       <div class="nav_box">
-        <div class="nav_search">
-          <van-icon name="aim" />
-          <input
-            v-model="searchText"
-            class="nav_tabber"
-            type="text"
-            placeholder="请输入商品关键词"
-          />
-          <van-icon
-            v-if="searchText.length > 0"
-            name="clear"
-            @click="clearSearch"
-          />
-        </div>
-        <div class="btn" @click="blurShop">搜索</div>
+        <van-icon name="aim" />
+        <input
+          v-model="searchText"
+          class="nav_tabber"
+          type="text"
+          placeholder="请输入商品关键词"
+        />
+        <van-icon
+          v-if="searchText.length > 0"
+          name="clear"
+          @click="clearSearch"
+        />
       </div>
       <div class="swipe_box" v-if="goodsListT.length !== 0">
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="#F94545">
@@ -46,7 +43,7 @@
         <van-empty description="未搜索到商品" />
       </div>
     </div>
-    <tab-bar :activeIndex="3" />
+    <tab-bar :activeIndex="2" />
   </div>
 </template>
 
@@ -80,6 +77,9 @@ export default {
   created() {
     this.initList();
   },
+  watch: {
+    searchText: "blurShop",
+  },
   methods: {
     clearSearch() {
       this.searchText = "";
@@ -111,7 +111,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#shopCar {
+#shopGoods {
   background-color: #fff;
   min-height: 100vh;
 }
@@ -121,34 +121,29 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 1rem;
+  padding-bottom: 1rem; 
   .nav_box {
     display: flex;
     align-items: center;
     width: 100%;
-    .nav_search {
-      display: flex;
-      align-items: center;
-      background-color: #f5f5f5;
-      border-radius: 0.34rem;
+    background-color: #f5f5f5;
+    border-radius: 0.34rem;
+    padding: 0rem 0.2rem;
+    box-sizing: border-box;
+    .van-icon {
+      font-size: 0.35rem;
+      color: #999999;
+      display: block;
+      width: 0.32rem;
+      height: 0.32rem;
+    }
+    input {
+      flex: 1;
+      border: none;
+      background-color: transparent;
       padding: 0rem 0.2rem;
       box-sizing: border-box;
-      flex: 1;
-      .van-icon {
-        font-size: 0.35rem;
-        color: #999999;
-      }
-      input {
-        flex: 1;
-        border: none;
-        background-color: transparent;
-        padding: 0rem 0.2rem;
-        box-sizing: border-box;
-        height: 0.68rem;
-      }
-    }
-    .btn {
-      padding: 0rem 0.2rem;
+      height: 0.68rem;
     }
   }
   .swipe_box {

@@ -21,7 +21,7 @@
       </div>
       <container />
     </div>
-    <tab-ber :activeIndex="4" />
+    <tab-ber :activeIndex="5" />
   </div>
 </template>
 

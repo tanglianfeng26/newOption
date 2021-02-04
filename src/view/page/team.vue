@@ -2,7 +2,7 @@
   <!-- 团队 -->
   <div id="team">
     <nav-tab />
-    <tab-ber :activeIndex="2" />
+    <tab-ber :activeIndex="4" />
   </div>
 </template>
 

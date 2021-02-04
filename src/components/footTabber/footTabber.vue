@@ -1,7 +1,7 @@
 <template>
   <div id="footTabber">
     <div class="w_box">
-      <div class="shopCar" @click="show_sheet">
+      <div class="shopGoods" @click="show_sheet">
         <img
           src="http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/qinrenxuan/Mall/%E8%B4%AD%E7%89%A9%E8%BD%A6@2x.png"
           alt=""
@@ -70,7 +70,7 @@ export default {
   .w_box {
     display: flex;
     align-items: center;
-    .shopCar {
+    .shopGoods {
       width: 1rem;
       height: 1rem;
       border-radius: 50%;

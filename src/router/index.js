@@ -49,12 +49,20 @@ const routes = [
     component: () => import("../view/page/team.vue"),
   },
   {
-    path: '/shopCar',
-    name: 'shopCar',
+    path: '/shopGoods',
+    name: 'shopGoods',
+    meta: {
+      title: '商店'
+    },
+    component: () => import("../view/page/shopGoods.vue"),
+  },
+  {
+    path: '/shopCars',
+    name: 'shopCars',
     meta: {
       title: '购物车'
     },
-    component: () => import("../view/page/shopCar.vue"),
+    component: () => import("../view/page/shopCars.vue"),
   },
   {
     path: '/mine',

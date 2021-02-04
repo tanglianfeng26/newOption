@@ -2,7 +2,7 @@ const baseUrl = {
     mine: "/mine/",
     home: "/home/",
     tool: "/tool/",
-    shopCar: "/shopCar/"
+    shopGoods: "/shopGoods/"
 }
 export default [
 
@@ -162,11 +162,19 @@ export default [
         component: () => import("../view/pageB/myAssets/accountingRecords.vue")
     },
     {
-        path: baseUrl.shopCar + "goodsInfo",
+        path: baseUrl.shopGoods + "goodsInfo",
         name: "goodsInfo",
         meta: {
             title: "商品详情"
         },
-        component: () => import("../view/pageA/shopCar/goodsInfo.vue")
+        component: () => import("../view/pageA/shopGoods/goodsInfo.vue")
+    },
+    {
+        path: baseUrl.shopGoods + "settlementG",
+        name: "settlementG",
+        meta: {
+            title: "商品结算"
+        },
+        component: () => import("../view/pageA/shopGoods/settlementG.vue")
     },
 ]

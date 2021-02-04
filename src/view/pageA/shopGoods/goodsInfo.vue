@@ -45,7 +45,14 @@
       </div>
       <div class="goodsInfo_TextImg">
         <div class="headerTitle">商品详情</div>
-        <div style="text-align: center">暂无商品详情</div>
+        <div class="big_bg">
+          <img
+            v-for="(item, index) in goodsAllInfo.goodsInfoList"
+            :key="index"
+            :src="item.imgUrl"
+            alt=""
+          />
+        </div>
       </div>
     </div>
     <van-goods-action>
@@ -55,10 +62,22 @@
         color="#be99ff"
         type="warning"
         text="加入购物车"
+        @click="submit_join"
       />
-      <van-goods-action-button color="#7232dd" type="danger" text="立即购买" />
+      <van-goods-action-button
+        color="#7232dd"
+        type="danger"
+        text="立即购买"
+        @click="submit_form"
+      />
     </van-goods-action>
-    <van-popup v-model="show" round position="bottom">
+    <van-popup
+      v-model="show"
+      round
+      position="bottom"
+      closeable
+      :close-on-click-overlay="popple_false"
+    >
       <div class="box_allSt">
         <div class="img" @click="open_smallImg">
           <img :src="imgGoods" alt="" />
@@ -145,6 +164,8 @@ export default {
     return {
       title: "商品详情",
       rightIcon: "",
+      popple_false: false,
+      sendGoodsLists: {},
       goodsAllInfo: {},
       current: 0,
       show: false,
@@ -161,19 +182,75 @@ export default {
     this.findList();
   },
   methods: {
+    //   立即购买
+    submit_form() {
+      if (this.activeMemory == null) {
+        Toast.fail("请选择规格");
+        return;
+      }
+      this.sendGoodsLists = {
+        title: this.goodsAllInfo.title,
+        imgUrl: this.imgGoods,
+        goodsIndex: this.value,
+        price: this.newPrice,
+        note_color: this.goodsAllInfo.goodsInfoList[this.activeColor].title,
+        note_memory: this.goodsAllInfo.goodsInfoList[this.activeColor].memory[
+          this.activeMemory
+        ].memorys,
+      };
+      this.$router.push({
+        name: "settlementG",
+        query: {
+          data: JSON.stringify(this.sendGoodsLists),
+        },
+      });
+    },
+    // 加入购物车成功
+    submit_join() {
+      if (this.activeMemory == null) {
+        Toast.fail("请选择规格");
+        return;
+      }
+      this.sendGoodsLists = {
+        code: this.uuid(),
+        title: this.goodsAllInfo.title,
+        imgUrl: this.imgGoods,
+        goodsIndex: this.value,
+        price: this.newPrice,
+        note_color: this.goodsAllInfo.goodsInfoList[this.activeColor].title,
+        note_memory: this.goodsAllInfo.goodsInfoList[this.activeColor].memory[
+          this.activeMemory
+        ].memorys,
+      };
+      if (localStorage["shopCarList"] === undefined) {
+        var obj = [];
+        obj.push(this.sendGoodsLists);
+        localStorage["shopCarList"] = JSON.stringify(obj);
+      } else {
+        var obj = JSON.parse(localStorage["shopCarList"]);
+        obj.push(this.sendGoodsLists);
+        localStorage["shopCarList"] = JSON.stringify(obj);
+      }
+      Toast.success("加入购物车成功");
+    },
+    uuid() {
+      var rnd = "";
+      for (var i = 0; i < 16; i++) rnd += Math.floor(Math.random() * 10);
+      return rnd;
+    },
     findList() {
       if (localStorage["shopList"] !== undefined) {
         var obj = JSON.parse(localStorage["shopList"]);
         this.goodsAllInfo = obj.filter((item) => {
-          return Number(item.ID) === Number(this.$route.query.ID)
+          return Number(item.ID) === Number(this.$route.query.ID);
         });
-        this.goodsAllInfo = this.goodsAllInfo[0]
+        this.goodsAllInfo = this.goodsAllInfo[0];
       }
     },
+
     changeActiveMemory(v, option) {
       this.activeMemory = v;
       this.newPrice = option.price;
-      console.log(this.newPrice);
     },
     //   选择规格
     changeActive(v) {
@@ -189,12 +266,6 @@ export default {
         return;
       }
       this.show = false;
-      console.log(this.activeColor, this.activeMemory, this.value);
-      console.log(
-        this.goodsAllInfo.goodsInfoList[this.activeColor].memory[
-          this.activeMemory
-        ].memorys
-      );
     },
     // 预览图片
     open_smallImg() {
@@ -203,10 +274,13 @@ export default {
         showIndex: false,
       });
     },
+
     handleTool() {},
+
     onChange(index) {
       this.current = index;
     },
+
     open_bigImg(v) {
       var obj = [];
       this.goodsAllInfo.goodsInfoList.forEach((item) => {
@@ -377,6 +451,7 @@ export default {
     text-align: center;
     color: #000;
     font-weight: 500;
+    border-bottom: 0.02rem solid #eee;
   }
 }
 .custom-indicator {
@@ -442,6 +517,13 @@ i {
     text-align: center;
     line-height: 0.8rem;
     color: #fff;
+  }
+}
+.big_bg {
+  width: 100%;
+  img {
+    width: 100%;
+    height: 100%;
   }
 }
 /deep/.van-popup--bottom {
