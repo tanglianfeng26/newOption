@@ -177,4 +177,12 @@ export default [
         },
         component: () => import("../view/pageA/shopGoods/settlementG.vue")
     },
+    {
+        path: baseUrl.shopGoods + "settleMentGs",
+        name: "settleMentGs",
+        meta: {
+            title: "商品结算"
+        },
+        component: () => import("../view/pageA/shopCars/settleMentGs.vue")
+    },
 ]

@@ -57,7 +57,7 @@
     </div>
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" />
-      <van-goods-action-icon icon="cart-o" text="购物车" />
+      <van-goods-action-icon icon="cart-o" text="购物车" @click="go_shopCar" :badge="goodsCarIndexs === 0 ? '' : goodsCarIndexs" />
       <van-goods-action-button
         color="#be99ff"
         type="warning"
@@ -146,7 +146,7 @@ import {
   ImagePreview,
   Popup,
   Stepper,
-  Toast,
+  Toast
 } from "vant";
 export default {
   components: {
@@ -158,7 +158,7 @@ export default {
     [SwipeItem.name]: SwipeItem,
     [ImagePreview.name]: ImagePreview,
     [Popup.name]: Popup,
-    [Stepper.name]: Stepper,
+    [Stepper.name]: Stepper
   },
   data() {
     return {
@@ -174,14 +174,30 @@ export default {
       activeMemory: null,
       newPrice: 0,
       value: 1,
+      goodsCarIndexs: 0,
       imgGoods:
-        "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/kanglifu/c5dc348d3f943324.jpg",
+        "http://maotaiprice.oss-cn-hangzhou.aliyuncs.com/kanglifu/c5dc348d3f943324.jpg"
     };
   },
   created() {
     this.findList();
+    this.getIndexS();
   },
   methods: {
+    // 前往购物车页面
+    go_shopCar() {
+      this.$router.replace({
+        name: "shopCars"
+      });
+    },
+    // 购物车数量
+    getIndexS() {
+      if (localStorage["shopCarList"] !== undefined) {
+        var obj = JSON.parse(localStorage["shopCarList"]);
+        this.goodsCarIndexs = obj.length;
+        console.log(this.goodsCarIndexs);
+      }
+    },
     //   立即购买
     submit_form() {
       if (this.activeMemory == null) {
@@ -196,13 +212,13 @@ export default {
         note_color: this.goodsAllInfo.goodsInfoList[this.activeColor].title,
         note_memory: this.goodsAllInfo.goodsInfoList[this.activeColor].memory[
           this.activeMemory
-        ].memorys,
+        ].memorys
       };
       this.$router.push({
         name: "settlementG",
         query: {
-          data: JSON.stringify(this.sendGoodsLists),
-        },
+          data: JSON.stringify(this.sendGoodsLists)
+        }
       });
     },
     // 加入购物车成功
@@ -220,7 +236,7 @@ export default {
         note_color: this.goodsAllInfo.goodsInfoList[this.activeColor].title,
         note_memory: this.goodsAllInfo.goodsInfoList[this.activeColor].memory[
           this.activeMemory
-        ].memorys,
+        ].memorys
       };
       if (localStorage["shopCarList"] === undefined) {
         var obj = [];
@@ -232,6 +248,7 @@ export default {
         localStorage["shopCarList"] = JSON.stringify(obj);
       }
       Toast.success("加入购物车成功");
+      this.getIndexS()
     },
     uuid() {
       var rnd = "";
@@ -241,7 +258,7 @@ export default {
     findList() {
       if (localStorage["shopList"] !== undefined) {
         var obj = JSON.parse(localStorage["shopList"]);
-        this.goodsAllInfo = obj.filter((item) => {
+        this.goodsAllInfo = obj.filter(item => {
           return Number(item.ID) === Number(this.$route.query.ID);
         });
         this.goodsAllInfo = this.goodsAllInfo[0];
@@ -271,7 +288,7 @@ export default {
     open_smallImg() {
       ImagePreview({
         images: [this.imgGoods],
-        showIndex: false,
+        showIndex: false
       });
     },
 
@@ -283,15 +300,15 @@ export default {
 
     open_bigImg(v) {
       var obj = [];
-      this.goodsAllInfo.goodsInfoList.forEach((item) => {
+      this.goodsAllInfo.goodsInfoList.forEach(item => {
         obj.push(item.imgUrl);
       });
       ImagePreview({
         images: obj,
-        startPosition: v,
+        startPosition: v
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

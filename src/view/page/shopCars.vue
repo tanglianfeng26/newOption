@@ -2,44 +2,57 @@
   <div id="shopCars">
     <div class="big_box">
       <div class="nav_btn">
-        <van-checkbox v-model="checked">全选</van-checkbox>
-        <van-icon class="font-s" name="delete-o" />
+        <van-checkbox v-model="checked" @click="changeActive"
+          >全选</van-checkbox
+        >
+        <van-icon class="font-s" name="delete-o" @click="del_order" />
       </div>
       <div class="shopList">
         <shop-list
+          v-if="orderList"
           :checkAll="checked"
           @beafPrice="getPrice"
           @checkAll="checkAll"
+          @changeIndex="changeIndex"
+          ref="change"
         />
+        <van-empty v-else description="购物车为空" />
       </div>
       <div class="footer_submit">
         <div class="price">
           合计：<i>￥</i> <span>{{ allPrice }}</span>
         </div>
-        <div class="btn">提交订单</div>
+        <div class="btn" @click="submit_tj">提交订单</div>
       </div>
     </div>
-    <tab-bar :activeIndex="3" />
+    <tab-bar :activeIndex="3" ref="newIndex"/>
   </div>
 </template>
 
 <script>
 import shopList from "../pageA/shopCars/shopList";
 import tabBar from "../../components/tabber/tabber";
-import { Checkbox, CheckboxGroup, Icon } from "vant";
+import { Checkbox, CheckboxGroup, Icon, Empty, Toast } from "vant";
 export default {
   components: {
     tabBar,
     shopList,
     [Checkbox.name]: Checkbox,
+    [Empty.name]: Empty,
     [CheckboxGroup.name]: CheckboxGroup,
-    [Icon.name]: Icon,
+    [Icon.name]: Icon
   },
   data() {
     return {
       checked: false,
       allPrice: 0,
+      orderList: false
     };
+  },
+  created() {
+    if (localStorage["shopCarList"] !== undefined && JSON.parse(localStorage["shopCarList"]).length > 0) {
+      this.orderList = true;
+    }
   },
   watch: {},
   methods: {
@@ -49,7 +62,34 @@ export default {
     checkAll(v) {
       this.checked = v;
     },
-  },
+    changeActive() {
+      console.log(this.checked);
+      if (this.orderList) {
+        if (!this.checked) {
+          this.$refs.change.getWXZ();
+        }
+      } else {
+        Toast.fail("无订单");
+      }
+    },
+    del_order() {
+      if (this.orderList) {
+        this.$refs.change.del_Order();
+      } else {
+        Toast.fail("无订单");
+      }
+    },
+    changeIndex(){
+      this.$refs.newIndex.getIndexS();
+    },
+    submit_tj() {
+      if (this.orderList) {
+        this.$refs.change.submit();
+      }else{
+        Toast.fail("无订单");
+      }
+    }
+  }
 };
 </script>
 

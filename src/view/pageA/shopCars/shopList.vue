@@ -30,12 +30,13 @@
 </template>
 
 <script>
-import { Checkbox, CheckboxGroup, Stepper } from "vant";
+import { Checkbox, CheckboxGroup, Stepper, Toast, Dialog } from "vant";
 export default {
   components: {
     [Checkbox.name]: Checkbox,
     [CheckboxGroup.name]: CheckboxGroup,
     [Stepper.name]: Stepper,
+    [Dialog.name]: Dialog
   },
   props: ["checkAll"],
   data() {
@@ -43,37 +44,83 @@ export default {
       result: [],
       checkActive: this.checkAll,
       orderList: [],
-      allPrice: 0,
+      allPrice: 0
     };
   },
   watch: {
     checkAll: "checkoutS",
-    allPrice: "changePrice",
+    allPrice: "changePrice"
   },
   created() {
     if (localStorage["shopCarList"] !== undefined) {
       this.orderList = JSON.parse(localStorage["shopCarList"]);
     }
   },
-  mounted() {
-    console.log(this.orderList);
-  },
   methods: {
     //   价格变动
     changePrice() {
       this.$emit("beafPrice", this.allPrice);
+    },
+    del_Order() {
+      if (this.result.length === 0) {
+        Toast.fail('请选中商品');
+        return;
+      } else {
+        Dialog.confirm({
+          title: "删除",
+          message: "此操作将删除选中的商品，是否确认删除？"
+        })
+          .then(() => {
+            this.checkOrder();
+            this.$emit("changeIndex")
+          })
+          .catch(() => {
+            // on cancel
+          });
+      }
+    },
+    checkOrder() {
+      var obj = [];
+      for (var k in this.result) {
+        obj.push(this.orderList[this.result[k]].code);
+      }
+      obj.forEach(item => {
+        this.orderList = this.orderList.filter((items, index) => {
+          return items.code !== item;
+        });
+      });
+      localStorage["shopCarList"] = JSON.stringify(this.orderList);
+      this.getWXZ();
+      this.initOrder();
+      // if(this.result.length === 0){
+      //   this.checkActive = false
+      // }
+    },
+    submit() {
+      var obj = [];
+      for (var k in this.result) {
+        obj.push(this.orderList[this.result[k]]);
+      }
+      console.log(obj);
+      this.$router.push({
+        name: "settleMentGs",
+        query: {
+          status: 1,
+          data: JSON.stringify(obj)
+        }
+      });
     },
     initOrder() {
       if (this.result.length === 0) {
         this.allPrice = 0;
       } else {
         this.allPrice = 0;
-        this.result.forEach((item) => {
+        this.result.forEach(item => {
           this.allPrice +=
             Number(this.orderList[item].price) *
             this.orderList[item].goodsIndex;
         });
-        console.log(this.allPrice);
+        // console.log(this.allPrice);
       }
     },
     checkoutS() {
@@ -81,7 +128,7 @@ export default {
       if (this.checkActive) {
         this.getXH();
       } else {
-        this.getWXZ();
+        // this.getWXZ();
       }
     },
     changeIndex() {
@@ -95,13 +142,17 @@ export default {
     },
     picker_d() {
       this.initOrder();
-      if (this.result.length === this.orderList.length) {
-        this.$emit("checkAll", true);
-      } else {
+      if (this.orderList.length === 0) {
         this.$emit("checkAll", false);
+      } else {
+        if (this.result.length === this.orderList.length) {
+          this.$emit("checkAll", true);
+        } else {
+          this.$emit("checkAll", false);
+        }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
